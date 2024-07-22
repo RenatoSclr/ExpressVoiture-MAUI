@@ -11,7 +11,7 @@ using System.Linq.Expressions;
 using ExpressVoiture.Services.IService;
 using Microsoft.AspNetCore.Http;
 
-namespace ExpressVoiture.Tests.UnitTets
+namespace ExpressVoiture.Tests.UnitsTests
 {
     public class VehicleServiceTests
     {
