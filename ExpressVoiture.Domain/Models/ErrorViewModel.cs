@@ -1,4 +1,4 @@
-namespace ExpressVoiture.Web.Models
+namespace ExpressVoiture.Domain.Models
 {
     public class ErrorViewModel
     {

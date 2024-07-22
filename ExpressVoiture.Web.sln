@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpressVoiture.Web", "ExpressVoiture.Web\ExpressVoiture.Web.csproj", "{CB8CEB07-4AE4-496D-A89C-9121908003D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpressVoiture.Web", "ExpressVoiture.Web\ExpressVoiture.Web.csproj", "{CB8CEB07-4AE4-496D-A89C-9121908003D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpressVoiture.Domain", "ExpressVoiture.Domain\ExpressVoiture.Domain.csproj", "{DC30F535-7325-4C03-B730-E7E9262E9660}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpressVoiture.Domain", "ExpressVoiture.Domain\ExpressVoiture.Domain.csproj", "{DC30F535-7325-4C03-B730-E7E9262E9660}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpressVoiture.DataAccess", "ExpressVoiture.DataAccess\ExpressVoiture.DataAccess.csproj", "{C75AECD3-80A9-42B5-9523-1D795F8E1BB5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpressVoiture.DataAccess", "ExpressVoiture.DataAccess\ExpressVoiture.DataAccess.csproj", "{C75AECD3-80A9-42B5-9523-1D795F8E1BB5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
