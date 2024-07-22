@@ -1,0 +1,44 @@
+﻿@model DeleteVehicleViewModel
+
+<form method="post">
+    <input asp-for="VoitureId" hidden />
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary">Supprimer Véhicule</h2>
+            <hr />
+        </div>
+        <div class="mb-3 row p-1">
+            <label asp-for=Annee class="p-0"></label>
+            <input asp-for=Annee disabled class="form-control" />
+            <span class="text-danger" asp-validation-for="Annee"></span>
+        </div>
+        <div class="mb-3 row p-1">
+            <label asp-for=Marque class="p-0"></label>
+            <input asp-for=Marque disabled class="form-control" />
+            <span class="text-danger" asp-validation-for="Marque"></span>
+        </div>
+        <div class="mb-3 row p-1">
+            <label asp-for=Modele class="p-0"></label>
+            <input asp-for=Modele disabled class="form-control" />
+            <span class="text-danger" asp-validation-for="Modele"></span>
+        </div>
+        <div class="mb-3 row p-1">
+            <label asp-for=Finition class="p-0"></label>
+            <input asp-for=Finition disabled class="form-control" />
+            <span class="text-danger" asp-validation-for="Finition"></span>
+        </div>
+        <div class="row">
+            <div class="col-6 col-md-3">
+                <button type="submit" class="btn btn-danger form-control">Supprimer</button>
+            </div>
+            <div class="col-6 col-md-3">
+                <a asp-controller="Vehicle" asp-action="Index" class="btn btn-outline-secondary form-control border">Retour a la liste</a>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial"></partial>
+}
