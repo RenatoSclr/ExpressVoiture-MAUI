@@ -1,0 +1,64 @@
+﻿@model List<AdminVehicleListViewModel>
+
+@{
+    ViewData["Title"] = "Liste des véhicules";
+}
+
+<div class="container mt-5">
+    <div class="row mb-4">
+        <div class="col-6">
+            <h2 class="text-primary">Liste des Véhicules</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-controller="Voiture" asp-action="Upsert" class="btn btn-primary">Ajouter un véhicule</a>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped table-hover align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">Année</th>
+                    <th scope="col">Marque</th>
+                    <th scope="col">Modèle</th>
+                    <th scope="col">Finition</th>
+                    <th scope="col">Date d'achat</th>
+                    <th scope="col">Prix d'achat</th>
+                    <th scope="col">Réparations</th>
+                    <th scope="col">Coût de réparation</th>
+                    <th scope="col">Date de disponibilité à la vente</th>
+                    <th scope="col">Prix de vente</th>
+                    <th scope="col">Date de vente</th>
+                    <th scope="col">Code VIN</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Annee</td>
+                        <td>@item.Marque</td>
+                        <td>@item.Modele</td>
+                        <td>@item.Finition</td>
+                        <td>@item.DateAchat.ToShortDateString()</td>
+                        <td>@item.PrixAchat</td>
+                        <td>@item.DescriptionReparations</td>
+                        <td>@item.CoutReparations</td>
+                        <td>@item.DateDisponibiliteVente.ToShortDateString()</td>
+                        <td>@item.PrixVente</td>
+                        <td>@(item.DateVente == null ? "Pas encore vendue" : item.DateVente.Value.ToString("dd/MM/yyyy"))</td>
+                        <td>@item.CodeVIN</td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <a class="btn btn-sm btn-primary" asp-action="Upsert" asp-route-id="@item.VoitureId">Éditer</a>
+                                <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.VoitureId">Supprimer</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
