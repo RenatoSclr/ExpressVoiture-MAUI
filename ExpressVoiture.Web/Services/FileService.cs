@@ -21,7 +21,7 @@ namespace ExpressVoiture.Services
             string wwwRootPath = _webHostEnvironment.WebRootPath;
             
             string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-            string voiturePath = Path.Combine(wwwRootPath, @"images\voitures");
+            string voiturePath = Path.Combine(wwwRootPath, @"images\vehicles");
 
             if (!string.IsNullOrEmpty(vehicle.ImagePath))
             {
@@ -38,7 +38,7 @@ namespace ExpressVoiture.Services
                 file.CopyTo(fileStream);
             }
 
-            vehicle.ImagePath = @"images\voitures\" + fileName;
+            vehicle.ImagePath = @"images\vehicles\" + fileName;
 
             return vehicle;
         }
