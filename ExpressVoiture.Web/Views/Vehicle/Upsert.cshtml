@@ -1,0 +1,91 @@
+﻿@model AddOrUpdateVehicleViewModel
+
+<form asp-action="Upsert" enctype="multipart/form-data">
+    <input asp-for="VoitureId" hidden />
+    <input asp-for="ImagePath" hidden />
+    <div class="row">
+        <div class="col-10">
+            <div class="border p-3">
+                <div class="row pb-2">
+                    <h2 class="text-primary">@(Model.VoitureId != 0 ? "Mise à jour d'un" : "Création d'un") Véhicule</h2>
+                    <hr />
+                </div>
+                <div class="form-group mb-2">
+                    <label asp-for="Annee" class="control-label"></label>
+                    <input asp-for="Annee" class="form-control" type="number" />
+                    <span asp-validation-for="Annee" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-2">
+                    <label asp-for="Marque" class="control-label"></label>
+                    <input asp-for="Marque" class="form-control" />
+                    <span asp-validation-for="Marque" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-2">
+                    <label asp-for="Modele" class="control-label"></label>
+                    <input asp-for="Modele" class="form-control" />
+                    <span asp-validation-for="Modele" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-2">
+                    <label asp-for="Finition" class="control-label"></label>
+                    <input asp-for="Finition" class="form-control" />
+                    <span asp-validation-for="Finition" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-2">
+                    <label asp-for="DateAchat" class="control-label"></label>
+                    <input asp-for="DateAchat" class="form-control" />
+                    <span asp-validation-for="DateAchat" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-2">
+                    <label asp-for="PrixAchat" class="control-label"></label>
+                    <input asp-for="PrixAchat" class="form-control" type="number" />
+                    <span asp-validation-for="PrixAchat" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-2">
+                    <label asp-for="DescriptionReparations" class="control-label"></label>
+                    <input asp-for="DescriptionReparations" class="form-control" />
+                    <span asp-validation-for="DescriptionReparations" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-2">
+                    <label asp-for="CoutReparations" class="control-label"></label>
+                    <input asp-for="CoutReparations" class="form-control" type="number" />
+                    <span asp-validation-for="CoutReparations" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-2">
+                    <label asp-for="DateDisponibiliteVente" class="control-label"></label>
+                    <input asp-for="DateDisponibiliteVente" class="form-control" />
+                    <span asp-validation-for="DateDisponibiliteVente" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-2">
+                    <label asp-for="DateVente" class="control-label"></label>
+                    <input asp-for="DateVente" class="form-control" />
+                    <span asp-validation-for="DateVente" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-2">
+                    <label asp-for="CodeVIN" class="control-label"></label>
+                    <input asp-for="CodeVIN" class="form-control" />
+                    <span asp-validation-for="CodeVIN" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-2">
+                    <label asp-for=ImagePath class="control-label"></label>
+                    <input asp-for=ImagePath type ="file" name="file" class="form-control" />
+                </div>
+                <div class="my-2 w-25">
+                    <img src="~/@Model.ImagePath" width="100%" style="border-radius:5px; border:1px solid #bbb9b9" />
+                    </div>
+                <div class="row">
+                    <div class=" col-md-3">
+                        <button type="submit" class="btn btn-primary form-control">Sauvegarder</button>
+                    </div>
+                    <div class=" col-md-3">
+                        <a asp-controller="Vehicle" asp-action="Index" class="btn btn-outline-secondary form-control border">Retour a la liste</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial"></partial>
+}
