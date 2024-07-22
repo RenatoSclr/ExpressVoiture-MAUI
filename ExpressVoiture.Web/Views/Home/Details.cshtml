@@ -1,0 +1,58 @@
+﻿@model ClientDetailedVehicleViewModel
+
+<div class="container mt-5">
+    <div class="d-flex justify-content-start mb-3">
+        <a asp-action="Index" asp-controller ="Home" class="btn btn-primary">
+            <i class="bi bi-arrow-left-circle"></i> Retour à l'accueil
+        </a>
+    </div>
+    <h2 class="text-center mb-5">Détails</h2>
+    <div class="card mb-4">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="~/@((Model.ImagePath == null) ? "images/utilities/images_indisponibles.png" : @Model.ImagePath)"
+                alt="Image de @Model.Marque @Model.Modele" 
+                class="img-fluid rounded-start w-100" 
+                style="object-fit: cover; height: 100%;">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body d-flex flex-column">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h3 class="text-primary">@Model.Marque @Model.Modele</h3>
+                        <span class="badge @((Model.DateVente.HasValue) ? "bg-success" : "bg-secondary")" style="font-size: 1.2em;">
+                            @(Model.DateVente.HasValue ? "Vendu" : "Disponible")
+                        </span>
+                    </div>
+                    <h3 class="text-danger"><strong>@Model.PrixVente €</strong></h3>
+                    <div class="row mt-4">
+                        <div class="col-md-5">
+                            <p class="card-text"><strong>Année:</strong> @Model.Annee</p>
+                            <p class="card-text"><strong>Marque:</strong> @Model.Marque</p>
+                            <p class="card-text"><strong>Modèle:</strong> @Model.Modele</p>
+                            <p class="card-text"><strong>Finition:</strong> @Model.Finition</p>
+                            @if (!Model.DateVente.HasValue)
+                            {
+                                <p class="card-text"><strong>Date de disponibilité à la vente:</strong> @Model.DateDisponibiliteVente.ToString("dd/MM/yyyy")</p>
+                            }
+                            @if (Model.DateVente.HasValue)
+                            {
+                                <p class="card-text"><strong>Date de vente:</strong> @Model.DateVente.Value.ToString("dd/MM/yyyy")</p>
+                            }
+                        </div>
+                        <div class="col-md-2 d-none d-md-flex justify-content-center align-items-center">
+                            <div class="vr"></div>
+                        </div>
+                        <div class="col-12 d-block d-md-none my-3">
+                            <hr />
+                        </div>
+                        <div class="col-md-5">
+                            <p class="card-text"><strong>Code VIN:</strong> @Model.CodeVIN</p>
+                            <p class="card-text"><strong>Coût des réparations:</strong> @Model.CoutReparations €</p>
+                            <p class="card-text"><strong>Description des réparations:</strong> @Model.DescriptionReparations</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
