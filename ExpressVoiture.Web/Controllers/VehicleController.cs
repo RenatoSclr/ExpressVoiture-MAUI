@@ -1,13 +1,6 @@
-﻿using ExpressVoiture.DataAccess.Repository;
-using ExpressVoiture.Domain.IRepository;
-using ExpressVoiture.Domain.Models;
-using ExpressVoiture.Services;
-using ExpressVoiture.Services.IService;
+﻿using ExpressVoiture.Services.IService;
 using ExpressVoiture.ViewModel;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.IdentityModel.Tokens;
 
 namespace ExpressVoiture.Controllers
 {
