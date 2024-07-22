@@ -1,4 +1,8 @@
 using ExpressVoiture.DataAccess.Data;
+using ExpressVoiture.DataAccess.Repository;
+using ExpressVoiture.Domain.IRepository;
+using ExpressVoiture.Services.IService;
+using ExpressVoiture.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,6 +13,11 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+builder.Services.AddScoped<IVoitureRepository, VoitureRepository>();
+builder.Services.AddScoped<IVehicleService, VehicleService>();
+builder.Services.AddScoped<HomeService>();
+builder.Services.AddScoped<IFileService, FileService>();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
