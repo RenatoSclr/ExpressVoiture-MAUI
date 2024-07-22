@@ -17,10 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="IntegrationsTests\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\ExpressVoiture.Domain\ExpressVoiture.Domain.csproj" />
     <ProjectReference Include="..\ExpressVoiture.Web\ExpressVoiture.Web.csproj" />
   </ItemGroup>
