@@ -3,7 +3,7 @@ using ExpressVoiture.ViewModel;
 
 namespace ExpressVoiture.Services.IService
 {
-    public interface IVoitureService
+    public interface IVehicleService
     {
 
         List<AdminVehicleListViewModel> GetListAdminVehicleViewModel();
