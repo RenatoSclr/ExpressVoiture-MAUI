@@ -1,9 +1,11 @@
 ﻿using ExpressVoiture.Services.IService;
 using ExpressVoiture.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExpressVoiture.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class VehicleController : Controller
     {
         private readonly IVehicleService _vehicleService;
