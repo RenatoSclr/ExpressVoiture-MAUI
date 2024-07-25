@@ -1,6 +1,7 @@
 ﻿@model AddOrUpdateVehicleViewModel
 
 <form asp-action="Upsert" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
     <input asp-for="VoitureId" hidden />
     <input asp-for="ImagePath" hidden />
     <div class="row">
