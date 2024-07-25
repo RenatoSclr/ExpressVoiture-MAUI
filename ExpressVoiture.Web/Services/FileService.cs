@@ -27,9 +27,9 @@ namespace ExpressVoiture.Services
             {
                 var oldImagePath = Path.Combine(wwwRootPath, vehicle.ImagePath.TrimStart('\\'));
 
-                if (System.IO.File.Exists(oldImagePath))
+                if (File.Exists(oldImagePath))
                 {
-                    System.IO.File.Delete(oldImagePath);
+                    File.Delete(oldImagePath);
                 }
             }
 
@@ -43,16 +43,16 @@ namespace ExpressVoiture.Services
             return vehicle;
         }
 
-        VoitureAVendre IFileService.DeleteFile(VoitureAVendre vehicle)
+        public VoitureAVendre DeleteFile(VoitureAVendre vehicle)
         {
             string wwwRootPath = _webHostEnvironment.WebRootPath;
             if (!string.IsNullOrEmpty(vehicle.ImagePath))
             {
                 var oldImagePath = Path.Combine(wwwRootPath, vehicle.ImagePath.TrimStart('\\'));
 
-                if (System.IO.File.Exists(oldImagePath))
+                if (File.Exists(oldImagePath))
                 {
-                    System.IO.File.Delete(oldImagePath);
+                    File.Delete(oldImagePath);
                 }
             }
 
