@@ -70,9 +70,12 @@
                     <label asp-for=ImagePath class="control-label"></label>
                     <input asp-for=ImagePath type ="file" name="file" class="form-control" />
                 </div>
-                <div class="my-2 w-25">
-                    <img src="~/@Model.ImagePath" width="100%" style="border-radius:5px; border:1px solid #bbb9b9" />
+                @if (Model.ImagePath != null)
+                {
+                    <div class="my-2 w-25">
+                        <img src="~/@Model.ImagePath" width="100%" style="border-radius:5px; border:1px solid #bbb9b9" />
                     </div>
+                }
                 <div class="row">
                     <div class=" col-md-3">
                         <button type="submit" class="btn btn-primary form-control">Sauvegarder</button>

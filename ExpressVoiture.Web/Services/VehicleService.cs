@@ -1,12 +1,6 @@
 ﻿using ExpressVoiture.Domain.IRepository;
 using ExpressVoiture.Domain.Models;
 using ExpressVoiture.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
 using ExpressVoiture.Services.IService;
 
 namespace ExpressVoiture.Services

@@ -1,12 +1,6 @@
 ﻿using ExpressVoiture.DataAccess.Data;
-using ExpressVoiture.Domain;
 using ExpressVoiture.Domain.IRepository;
 using ExpressVoiture.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ExpressVoiture.DataAccess.Repository
 {

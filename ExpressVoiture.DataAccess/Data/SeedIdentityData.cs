@@ -1,9 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ExpressVoiture.DataAccess.Data
 {
@@ -25,14 +20,14 @@ namespace ExpressVoiture.DataAccess.Data
             }
 
             // Créer l'utilisateur Admin
-            IdentityUser user = await userManager.FindByEmailAsync("admin@112.com");
+            IdentityUser user = await userManager.FindByEmailAsync("admin@123.com");
 
             if (user == null)
             {
                 user = new IdentityUser()
                 {
-                    UserName = "admin@112.com",
-                    Email = "admin@112.com",
+                    UserName = "admin@123.com",
+                    Email = "admin@123.com",
                     EmailConfirmed = true
                 };
                 await userManager.CreateAsync(user, "Admin@123");
