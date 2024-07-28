@@ -8,6 +8,7 @@
         public string? Modele { get; set; }
         public string? Finition { get; set; }
         public string? ImagePath { get; set; }
+        public DateTime? DateVente { get; set; }
         public double PrixVente { get; set; }
     }
 }

@@ -35,6 +35,7 @@ namespace ExpressVoiture.Services
                     Marque = voiture.Marque,
                     Finition = voiture.Finition,
                     ImagePath = voiture.ImagePath,
+                    DateVente = voiture.Vente.DateVente,
                     PrixVente = _vehicleService.CalculateSellPrice(voiture.Reparation.Cout, voiture.PrixAchat)
                 });
             }

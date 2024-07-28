@@ -16,6 +16,9 @@
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <h3 class="text-primary">@voiture.Marque @voiture.Modele</h3>
                             <h3 class="text-danger"><strong>@voiture.PrixVente €</strong></h3>
+                            <span class="badge @((voiture.DateVente.HasValue) ? "bg-success" : "bg-secondary")" style="font-size: 1.2em;">
+                                @(voiture.DateVente.HasValue ? "Vendu" : "Disponible")
+                            </span>
                         </div>
                         <p><strong>Année:</strong> @voiture.Annee</p>
                         <p><strong>Marque:</strong> @voiture.Marque</p>
