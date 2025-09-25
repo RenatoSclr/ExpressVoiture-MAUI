@@ -1,6 +1,5 @@
-using ExpressVoiture.Domain.Models;
 using ExpressVoiture.Services;
-using ExpressVoiture.ViewModel;
+using ExpressVoiture.Shared.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -17,15 +16,15 @@ namespace ExpressVoiture.Web.Controllers
             _homeService = homeService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            List<ClientVehicleListViewModel> voitureList = _homeService.GetAllClientVehicleListViewModel();
+            List<ClientVehicleListViewModel> voitureList = await _homeService.GetAllClientVehicleListViewModelAsync();
             return View(voitureList);
         }
 
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            ClientDetailedVehicleViewModel voitureDetailed = _homeService.GetClientDetailsViewModel(id);
+            ClientDetailedVehicleViewModel voitureDetailed = await _homeService.GetClientDetailsViewModelAsync(id);
             return View(voitureDetailed);
         }
 

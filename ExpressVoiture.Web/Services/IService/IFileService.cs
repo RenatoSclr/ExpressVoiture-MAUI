@@ -1,11 +1,10 @@
-﻿using ExpressVoiture.Domain.Models;
-using ExpressVoiture.ViewModel;
+﻿using ExpressVoiture.Shared.ViewModel;
 
 namespace ExpressVoiture.Services.IService
 {
     public interface IFileService
     {
         AddOrUpdateVehicleViewModel CreateFile(AddOrUpdateVehicleViewModel voiture, IFormFile file);
-        VoitureAVendre DeleteFile(VoitureAVendre voiture);
+        void DeleteFileByVehiculeId(int id);
     }
 }

@@ -1,6 +1,6 @@
-﻿using ExpressVoiture.DataAccess.Data;
-using ExpressVoiture.DataAccess.Repository;
-using ExpressVoiture.Domain.Models;
+﻿using ExpressVoiture.API.Domain.Models;
+using ExpressVoiture.API.Infrastruture.Data;
+using ExpressVoiture.API.Infrastruture.Repository;
 using Microsoft.EntityFrameworkCore;
 
 namespace ExpressVoiture.Tests.IntegrationsTests

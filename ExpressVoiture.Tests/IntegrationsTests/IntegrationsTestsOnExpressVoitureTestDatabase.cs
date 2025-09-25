@@ -1,4 +1,4 @@
-﻿using ExpressVoiture.Domain.Models;
+﻿using ExpressVoiture.API.Domain.Models;
 using Xunit;
 
 namespace ExpressVoiture.Tests.IntegrationsTests

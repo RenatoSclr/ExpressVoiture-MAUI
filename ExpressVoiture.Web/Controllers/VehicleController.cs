@@ -1,5 +1,5 @@
 ﻿using ExpressVoiture.Services.IService;
-using ExpressVoiture.ViewModel;
+using ExpressVoiture.Shared.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,13 +13,13 @@ namespace ExpressVoiture.Controllers
         {
             _vehicleService = vehicleService;
         }   
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            List<AdminVehicleListViewModel> voitureList = _vehicleService.GetListAdminVehicleViewModel();
+            List<AdminVehicleListViewModel> voitureList = await _vehicleService.GetListAdminVehicleViewModel();
             return View(voitureList);
         }
 
-        public IActionResult Upsert(int? id)
+        public async Task<IActionResult> Upsert(int? id)
         {
 
             if (id == null || id == 0)
@@ -28,7 +28,7 @@ namespace ExpressVoiture.Controllers
             }
             else
             {
-                AddOrUpdateVehicleViewModel voitureAModifier = _vehicleService.GetAddOrUpdateVehicleViewModel(id);
+                AddOrUpdateVehicleViewModel voitureAModifier = await _vehicleService.GetAddOrUpdateVehicleViewModel(id);
                 return View(voitureAModifier);
             }
 
@@ -62,14 +62,14 @@ namespace ExpressVoiture.Controllers
 
         }
 
-        public IActionResult Delete(int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || id == 0)
             {
                 return NotFound();
             }
 
-            DeleteVehicleViewModel? voiture = _vehicleService.GetDeleteVehicleViewModel(id);
+            DeleteVehicleViewModel? voiture = await _vehicleService.GetDeleteVehicleViewModel(id);
             if (voiture == null)
             {
                 return NotFound();

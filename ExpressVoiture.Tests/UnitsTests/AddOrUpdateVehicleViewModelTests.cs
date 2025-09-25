@@ -1,4 +1,4 @@
-﻿using ExpressVoiture.ViewModel;
+﻿using ExpressVoiture.Shared.ViewModel;
 using System.ComponentModel.DataAnnotations;
 using Xunit;
 

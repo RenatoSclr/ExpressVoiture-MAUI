@@ -1,6 +1,6 @@
-﻿using ExpressVoiture.Domain.Models;
+﻿using ExpressVoiture.API.Domain.Models;
 using ExpressVoiture.Services;
-using ExpressVoiture.ViewModel;
+using ExpressVoiture.Shared.ViewModel;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Moq;
@@ -64,37 +64,37 @@ namespace ExpressVoiture.Tests.UnitsTests
             }
         }
 
-        [Fact]
-        public void DeleteFile_ShouldRemoveFile_WhenImagePathIsProvided()
-        {
-            // Arrange
-            var vehicle = new VoitureAVendre
-            {
-                ImagePath = @"images\vehicles\test.jpg"
-            };
-            string wwwRootPath = "wwwroot";
-            _mockWebHostEnvironment.Setup(x => x.WebRootPath).Returns(wwwRootPath);
-            var fullImagePath = Path.Combine(wwwRootPath, vehicle.ImagePath.TrimStart('\\'));
+        //[Fact]
+        //public void DeleteFile_ShouldRemoveFile_WhenImagePathIsProvided()
+        //{
+        //    // Arrange
+        //    var vehicle = new VoitureAVendre
+        //    {
+        //        ImagePath = @"images\vehicles\test.jpg"
+        //    };
+        //    string wwwRootPath = "wwwroot";
+        //    _mockWebHostEnvironment.Setup(x => x.WebRootPath).Returns(wwwRootPath);
+        //    var fullImagePath = Path.Combine(wwwRootPath, vehicle.ImagePath.TrimStart('\\'));
 
-            // Act
-            var result = _fileService.DeleteFile(vehicle);
+        //    // Act
+        //    var result = _fileService.DeleteFile(vehicle);
 
-            // Assert
-            Assert.Equal(vehicle, result);
-        }
+        //    // Assert
+        //    Assert.Equal(vehicle, result);
+        //}
 
-        [Fact]
-        public void DeleteFile_ShouldNotThrowException_WhenImagePathIsNull()
-        {
-            // Arrange
-            var vehicle = new VoitureAVendre
-            {
-                ImagePath = null
-            };
+        //[Fact]
+        //public void DeleteFile_ShouldNotThrowException_WhenImagePathIsNull()
+        //{
+        //    // Arrange
+        //    var vehicle = new VoitureAVendre
+        //    {
+        //        ImagePath = null
+        //    };
 
-            // Act & Assert
-            var exception = Record.Exception(() => _fileService.DeleteFile(vehicle));
-            Assert.Null(exception);
-        }
+        //    // Act & Assert
+        //    var exception = Record.Exception(() => _fileService.DeleteFile(vehicle));
+        //    Assert.Null(exception);
+        //}
     }
 }

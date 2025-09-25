@@ -1,6 +1,5 @@
-﻿using ExpressVoiture.Domain.Models;
-using ExpressVoiture.Services.IService;
-using ExpressVoiture.ViewModel;
+﻿using ExpressVoiture.Services.IService;
+using ExpressVoiture.Shared.ViewModel;
 
 namespace ExpressVoiture.Services
 {
@@ -43,20 +42,11 @@ namespace ExpressVoiture.Services
             return vehicle;
         }
 
-        public VoitureAVendre DeleteFile(VoitureAVendre vehicle)
+        public void DeleteFileByVehiculeId(int id)
         {
-            string wwwRootPath = _webHostEnvironment.WebRootPath;
-            if (!string.IsNullOrEmpty(vehicle.ImagePath))
-            {
-                var oldImagePath = Path.Combine(wwwRootPath, vehicle.ImagePath.TrimStart('\\'));
-
-                if (File.Exists(oldImagePath))
-                {
-                    File.Delete(oldImagePath);
-                }
-            }
-
-            return vehicle;
+            string path = Path.Combine("wwwroot", "images", $"{id}.jpg"); 
+            if (File.Exists(path))
+                File.Delete(path);
         }
     }
 }
