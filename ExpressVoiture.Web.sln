@@ -28,6 +28,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client Web", "Client Web", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client Mobile", "Client Mobile", "{12171E02-EB98-446D-A6FA-9A4A571366AE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpressVoiture.MAUI", "ExpressVoiture.MAUI\ExpressVoiture.MAUI.csproj", "{D1589086-80A9-4EE9-85EE-095FB4C4A326}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -62,6 +64,10 @@ Global
 		{3307F5CF-57D2-42B1-9A9E-B8D4BC1B58BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3307F5CF-57D2-42B1-9A9E-B8D4BC1B58BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3307F5CF-57D2-42B1-9A9E-B8D4BC1B58BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1589086-80A9-4EE9-85EE-095FB4C4A326}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1589086-80A9-4EE9-85EE-095FB4C4A326}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1589086-80A9-4EE9-85EE-095FB4C4A326}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1589086-80A9-4EE9-85EE-095FB4C4A326}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,6 +79,7 @@ Global
 		{AFB6E95A-C3CE-43AD-9C60-A76A6D9553AF} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{51028A89-E66C-43EA-9F43-D2B8A6FB01BC} = {00DE5ECC-53F0-415B-BCEC-364CB73D36B7}
 		{3307F5CF-57D2-42B1-9A9E-B8D4BC1B58BA} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{D1589086-80A9-4EE9-85EE-095FB4C4A326} = {12171E02-EB98-446D-A6FA-9A4A571366AE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {ADE33D96-2B11-4966-859D-986039FABDB0}
