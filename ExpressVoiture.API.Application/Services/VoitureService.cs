@@ -130,15 +130,6 @@ namespace ExpressVoiture.API.Application.Services
                 throw new Exception($"Voiture with ID {id} not found.");
             }
 
-            if (!string.IsNullOrEmpty(voiture.ImagePath))
-            {
-                string path = Path.Combine("wwwroot", voiture.ImagePath.TrimStart('\\'));
-                if (File.Exists(path))
-                {
-                    File.Delete(path);
-                }
-            }
-
             await _voitureRepository.Remove(voiture);
             await _voitureRepository.Save();
         }

@@ -78,7 +78,6 @@ namespace ExpressVoiture.Tests.IntegrationsTests
             VoitureAVendre vehicle = GetVoitureAVendre();
             _fixture.AddVehicle(vehicle);
 
-            // Mise à jour des propriétés du véhicule
             vehicle.Annee = 2020;
             vehicle.Reparation.Cout = 8000;
             vehicle.Vente.DateDisponibiliteVente = new DateTime(2022, 4, 10);

@@ -7,17 +7,18 @@ namespace ExpressVoiture.Tests.IntegrationsTests
 {
     public class DatabaseFixture : IDisposable
     {
-        private readonly string _connectionString = "Server=.;Database=ExpressVoitureTestDatabase;Trusted_Connection=True;TrustServerCertificate=True;";
         private readonly ApplicationDbContext _dbContext;
 
         public DatabaseFixture()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseSqlServer(_connectionString)
-            .Options;
+                .UseInMemoryDatabase(databaseName: "ExpressVoitureTestDatabase")
+                .Options;
 
             _dbContext = new ApplicationDbContext(options);
-            _dbContext.Database.Migrate();
+
+            _dbContext.Database.EnsureDeleted();
+            _dbContext.Database.EnsureCreated();
         }
 
         public void AddVehicle(VoitureAVendre product)
@@ -43,7 +44,10 @@ namespace ExpressVoiture.Tests.IntegrationsTests
 
         public VoitureAVendre GetVehicle(int id)
         {
-            return _dbContext.Voitures.FirstOrDefault(v => v.VoitureId == id);
+            return _dbContext.Voitures
+                .Include(v => v.Reparation)
+                .Include(v => v.Vente)
+                .FirstOrDefault(v => v.VoitureId == id);
         }
 
         public void Dispose()

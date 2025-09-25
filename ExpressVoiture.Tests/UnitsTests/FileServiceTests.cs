@@ -77,7 +77,7 @@ namespace ExpressVoiture.Tests.UnitsTests
         //    var fullImagePath = Path.Combine(wwwRootPath, vehicle.ImagePath.TrimStart('\\'));
 
         //    // Act
-        //    var result = _fileService.DeleteFile(vehicle);
+        //    var result =  _fileService.DeleteFileByVehiculeId(vehicle.VoitureId);
 
         //    // Assert
         //    Assert.Equal(vehicle, result);

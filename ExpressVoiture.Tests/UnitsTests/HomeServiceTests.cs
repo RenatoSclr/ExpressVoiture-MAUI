@@ -1,8 +1,9 @@
-﻿using ExpressVoiture.API.Domain.Models;
-using ExpressVoiture.Services;
-using ExpressVoiture.Services.IService;
+﻿using ExpressVoiture.API.Application.Services;
+using ExpressVoiture.API.Domain.IRepository;
+using ExpressVoiture.API.Domain.Models;
 using ExpressVoiture.Shared.ViewModel;
 using Moq;
+using System.Linq.Expressions;
 using Xunit;
 
 namespace ExpressVoiture.Tests.UnitsTests
@@ -70,54 +71,56 @@ namespace ExpressVoiture.Tests.UnitsTests
             return voiture;
         }
 
-        //[Fact]
-        //public void GetAllClientVehicleListViewModel_ReturnCorrectViewModelList()
-        //{
-        //    // Arrange
-        //    var mockVoitureRepository = new Mock<IVoitureRepository>();
-        //    var mockVoitureService = new Mock<IVehicleService>();
-        //    mockVoitureRepository.Setup(repo => repo.GetAll(It.IsAny<string>()))
-        //        .Returns(GetListVoitureAVendre());
+        [Fact]
+        public async Task GetAllClientVehicleListViewModel_ReturnCorrectViewModelList()
+        {
+            // Arrange
+            var mockVoitureRepository = new Mock<IVoitureRepository>();
 
-        //    var homeService = new HomeService(mockVoitureRepository.Object, mockVoitureService.Object);
-        //    // Act
-        //    var result = homeService.GetAllClientVehicleListViewModel();
-        //    // Assert
-        //    Assert.True(result is List<ClientVehicleListViewModel>);
-        //    Assert.Equal(3, result.Count);
-        //    Assert.Equal("Mazda", result[0].Marque);
-        //    Assert.Equal("Jeep", result[1].Marque);
-        //    Assert.Equal("Renault", result[2].Marque);
+            mockVoitureRepository.Setup(repo => repo.GetAll(It.IsAny<string>()))
+                .ReturnsAsync(GetListVoitureAVendre());
 
-        //}
+            var voitureServiceApi = new VoitureService(mockVoitureRepository.Object);
+            // Act
+            var result = await voitureServiceApi.GetAllClientVehicle(includeProperties: "Reparation,Vente");
+            var listResult = result.ToList();
+            // Assert
+            Assert.True(result is List<ClientVehicleListViewModel>);
+            Assert.Equal(3, listResult.Count);
+            Assert.Equal("Mazda", listResult[0].Marque);
+            Assert.Equal("Jeep", listResult[1].Marque);
+            Assert.Equal("Renault", listResult[2].Marque);
+
+        }
 
 
-        //[Fact]
-        //public void GetClientDetailsViewModel_ReturnCorrectViewModel()
-        //{
-        //    // Arrange
-        //    var voiture = GetVoitureAVendre();
-        //    var mockVoitureRepository = new Mock<IVoitureRepository>();
-        //    var mockVoitureService = new Mock<IVehicleService>();
-        //    mockVoitureService.Setup(serv => serv.GetVoitureAVendreById(1))
-        //                     .Returns(voiture);
+        [Fact]
+        public async Task GetClientDetailsViewModel_ReturnCorrectViewModel()
+        {
+            // Arrange
+            var voiture = GetVoitureAVendre();
+            var mockVoitureRepository = new Mock<IVoitureRepository>();
 
-        //    var homeService = new HomeService(mockVoitureRepository.Object, mockVoitureService.Object);
+            mockVoitureRepository
+                .Setup(r => r.Get(It.IsAny<Expression<Func<VoitureAVendre, bool>>>(), It.IsAny<string>()))
+                .ReturnsAsync(voiture);
 
-        //    // Act
-        //    var result = homeService.GetClientDetailsViewModel(1);
+            var voitureService = new VoitureService(mockVoitureRepository.Object);
 
-        //    // Assert
-        //    Assert.True(result is ClientDetailedVehicleViewModel);
-        //    Assert.Equal(voiture.Annee, result.Annee);
-        //    Assert.Equal(voiture.Modele, result.Modele);
-        //    Assert.Equal(voiture.Marque, result.Marque);
-        //    Assert.Equal(voiture.CodeVIN, result.CodeVIN);
-        //    Assert.Equal(voiture.Finition, result.Finition);
-        //    Assert.Equal(voiture.Reparation.Cout, result.CoutReparations);
-        //    Assert.Equal(voiture.Reparation.Description, result.DescriptionReparations);
-        //    Assert.Equal(voiture.Vente.DateVente, result.DateVente);
-        //    Assert.Equal(voiture.Vente.DateDisponibiliteVente, result.DateDisponibiliteVente);
-        //}
+            // Act
+            var result = await voitureService.GetClientDetailedVehicle(1);
+
+            // Assert
+            Assert.True(result is ClientDetailedVehicleViewModel);
+            Assert.Equal(voiture.Annee, result.Annee);
+            Assert.Equal(voiture.Modele, result.Modele);
+            Assert.Equal(voiture.Marque, result.Marque);
+            Assert.Equal(voiture.CodeVIN, result.CodeVIN);
+            Assert.Equal(voiture.Finition, result.Finition);
+            Assert.Equal(voiture.Reparation.Cout, result.CoutReparations);
+            Assert.Equal(voiture.Reparation.Description, result.DescriptionReparations);
+            Assert.Equal(voiture.Vente.DateVente, result.DateVente);
+            Assert.Equal(voiture.Vente.DateDisponibiliteVente, result.DateDisponibiliteVente);
+        }
     }
 }
