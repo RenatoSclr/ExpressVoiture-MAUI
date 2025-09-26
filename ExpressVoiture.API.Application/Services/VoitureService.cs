@@ -13,19 +13,19 @@ namespace ExpressVoiture.API.Application.Services
             _voitureRepository = voitureRepository;
         }
 
-        public async Task<List<AdminVehicleListViewModel>> GetListAdminVehicleViewModel()
+        public async Task<List<AdminVehicleListDto>> GetListAdminVehicleViewModel()
         {
 
             IEnumerable<VoitureAVendre> productEntities = await _voitureRepository.GetAll(includeProperties: "Reparation,Vente");
             return MapToAdminVehicleListViewModel(productEntities);
         }
 
-        private List<AdminVehicleListViewModel> MapToAdminVehicleListViewModel(IEnumerable<VoitureAVendre> voitureEntities)
+        private List<AdminVehicleListDto> MapToAdminVehicleListViewModel(IEnumerable<VoitureAVendre> voitureEntities)
         {
-            List<AdminVehicleListViewModel> voituresViewModel = new List<AdminVehicleListViewModel>();
+            List<AdminVehicleListDto> voituresViewModel = new List<AdminVehicleListDto>();
             foreach (VoitureAVendre voiture in voitureEntities)
             {
-                voituresViewModel.Add(new AdminVehicleListViewModel
+                voituresViewModel.Add(new AdminVehicleListDto
                 {
                     VoitureId = voiture.VoitureId,
                     Annee = voiture.Annee,
@@ -51,15 +51,15 @@ namespace ExpressVoiture.API.Application.Services
             return coutReparation + prixAxhat + benefice;
         }
 
-        public async Task<AddOrUpdateVehicleViewModel> GetAddOrUpdateVehicleViewModel(int? id)
+        public async Task<AddOrUpdateVehicleDto> GetAddOrUpdateVehicleViewModel(int? id)
         {
             VoitureAVendre voiture = await _voitureRepository.Get(u => u.VoitureId == id, includeProperties: "Reparation,Vente");
             return MapToAddOrUpdateVehicleViewModel(voiture);
         }
 
-        private AddOrUpdateVehicleViewModel MapToAddOrUpdateVehicleViewModel(VoitureAVendre voiture)
+        private AddOrUpdateVehicleDto MapToAddOrUpdateVehicleViewModel(VoitureAVendre voiture)
         {
-            AddOrUpdateVehicleViewModel voituresViewModel = new AddOrUpdateVehicleViewModel
+            AddOrUpdateVehicleDto voituresViewModel = new AddOrUpdateVehicleDto
             {
                 VoitureId = voiture.VoitureId,
                 Annee = voiture.Annee,
@@ -78,14 +78,14 @@ namespace ExpressVoiture.API.Application.Services
             return voituresViewModel;
         }
 
-        public async Task SaveVoitureAVendre(AddOrUpdateVehicleViewModel voitureAAjouter)
+        public async Task SaveVoitureAVendre(AddOrUpdateVehicleDto voitureAAjouter)
         {
             VoitureAVendre VoitureAAjouter = MapToVoitureAVendreEntity(voitureAAjouter);
             await _voitureRepository.Add(VoitureAAjouter);
             await _voitureRepository.Save();
         }
 
-        public async Task UpdateVoitureAVendre(AddOrUpdateVehicleViewModel voitureAAjouter)
+        public async Task UpdateVoitureAVendre(AddOrUpdateVehicleDto voitureAAjouter)
         {
             VoitureAVendre voitureExistante = await GetVoitureAVendreById(voitureAAjouter.VoitureId);
 
@@ -97,7 +97,7 @@ namespace ExpressVoiture.API.Application.Services
             }
         }
 
-        private VoitureAVendre MapToVoitureAVendreEntity(AddOrUpdateVehicleViewModel voitureAAjouter, VoitureAVendre voitureExistante = null)
+        private VoitureAVendre MapToVoitureAVendreEntity(AddOrUpdateVehicleDto voitureAAjouter, VoitureAVendre voitureExistante = null)
         {
             VoitureAVendre voiture = voitureExistante ?? new VoitureAVendre();
 
@@ -139,15 +139,15 @@ namespace ExpressVoiture.API.Application.Services
             return await _voitureRepository.Get(u => u.VoitureId == id, includeProperties: "Reparation,Vente");
         }
 
-        public async Task<DeleteVehicleViewModel> GetDeleteVehicleViewModel(int? id)
+        public async Task<DeleteVehicleDto> GetDeleteVehicleViewModel(int? id)
         {
             VoitureAVendre voiture = await _voitureRepository.Get(u => u.VoitureId == id);
             return MapToDeleteVehicleViewModel(voiture);
         }
 
-        private DeleteVehicleViewModel MapToDeleteVehicleViewModel(VoitureAVendre voiture)
+        private DeleteVehicleDto MapToDeleteVehicleViewModel(VoitureAVendre voiture)
         {
-            DeleteVehicleViewModel voituresViewModel = new DeleteVehicleViewModel
+            DeleteVehicleDto voituresViewModel = new DeleteVehicleDto
             {
                 VoitureId = voiture.VoitureId,
                 Annee = voiture.Annee,
@@ -158,12 +158,12 @@ namespace ExpressVoiture.API.Application.Services
             return voituresViewModel;
         }
 
-        public async Task<ClientDetailedVehicleViewModel> GetClientDetailedVehicle(int id)
+        public async Task<ClientDetailedVehicleDto> GetClientDetailedVehicle(int id)
         {
             VoitureAVendre vehicle = await _voitureRepository.Get(v => v.VoitureId == id, includeProperties: "Reparation,Vente");
             if (vehicle is null) return null;
 
-            var result = new ClientDetailedVehicleViewModel
+            var result = new ClientDetailedVehicleDto
             {
                 Annee = vehicle.Annee,
                 Modele = vehicle.Modele,
@@ -181,13 +181,13 @@ namespace ExpressVoiture.API.Application.Services
             return result;
         }
 
-        public async Task<IEnumerable<ClientVehicleListViewModel>> GetAllClientVehicle(string includeProperties)
+        public async Task<IEnumerable<ClientVehicleListDto>> GetAllClientVehicle(string includeProperties)
         {
             IEnumerable<VoitureAVendre> voitures = await _voitureRepository.GetAll(includeProperties);
 
             if (voitures is null) return null;
 
-            var result = voitures.Select(vehicle => new ClientVehicleListViewModel
+            var result = voitures.Select(vehicle => new ClientVehicleListDto
             {
                 VoitureId = vehicle.VoitureId,
                 Annee = vehicle.Annee,

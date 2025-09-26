@@ -11,7 +11,7 @@ namespace ExpressVoiture.Services
             _webHostEnvironment = webHostEnvironment;
         }
 
-        public AddOrUpdateVehicleViewModel CreateFile(AddOrUpdateVehicleViewModel vehicle, IFormFile file)
+        public AddOrUpdateVehicleDto CreateFile(AddOrUpdateVehicleDto vehicle, IFormFile file)
         {
             if (file == null)
             {

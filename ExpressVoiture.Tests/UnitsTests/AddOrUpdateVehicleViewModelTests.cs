@@ -6,9 +6,9 @@ namespace ExpressVoiture.Tests.UnitsTests
 {
     public class AddOrUpdateVehicleViewModelTests
     {
-        private AddOrUpdateVehicleViewModel GetAddOrUpdateVehicleViewModel()
+        private AddOrUpdateVehicleDto GetAddOrUpdateVehicleViewModel()
         {
-            var voiture = new AddOrUpdateVehicleViewModel
+            var voiture = new AddOrUpdateVehicleDto
             {
                 VoitureId = 1,
                 Annee = 2019,

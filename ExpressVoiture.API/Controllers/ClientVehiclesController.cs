@@ -14,7 +14,7 @@ public class ClientVehiclesController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<ClientVehicleListViewModel>>> GetAll()
+    public async Task<ActionResult<List<ClientVehicleListDto>>> GetAll()
     {
         var voitures = await _voitureService.GetAllClientVehicle(includeProperties: "Reparation,Vente");
 
@@ -22,7 +22,7 @@ public class ClientVehiclesController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<ClientDetailedVehicleViewModel>> GetById(int id)
+    public async Task<ActionResult<ClientDetailedVehicleDto>> GetById(int id)
     {
         var vehicle = await _voitureService.GetClientDetailedVehicle(id);
 

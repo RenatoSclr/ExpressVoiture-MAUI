@@ -12,14 +12,14 @@ namespace ExpressVoiture.Services
             _httpClient = httpClient;
         }
 
-        public async Task<List<ClientVehicleListViewModel>> GetAllClientVehicleListViewModelAsync()
+        public async Task<List<ClientVehicleListDto>> GetAllClientVehicleListViewModelAsync()
         {
-            return await _httpClient.GetFromJsonAsync<List<ClientVehicleListViewModel>>("api/ClientVehicles");
+            return await _httpClient.GetFromJsonAsync<List<ClientVehicleListDto>>("api/ClientVehicles");
         }
 
-        public async Task<ClientDetailedVehicleViewModel> GetClientDetailsViewModelAsync(int id)
+        public async Task<ClientDetailedVehicleDto> GetClientDetailsViewModelAsync(int id)
         {
-            return await _httpClient.GetFromJsonAsync<ClientDetailedVehicleViewModel>($"api/ClientVehicles/{id}");
+            return await _httpClient.GetFromJsonAsync<ClientDetailedVehicleDto>($"api/ClientVehicles/{id}");
         }
     }
 }

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:ExpressVoiture.MAUI.ViewModels"
+             xmlns:shared="clr-namespace:ExpressVoiture.Shared.ViewModel;assembly=ExpressVoiture.Shared"
+             x:Class="ExpressVoiture.MAUI.Views.VehicleListPage"
+             x:DataType="viewmodel:VehicleListViewModel"
+             Title="Nos véhicules">
+
+    <StackLayout Padding="10">
+        <!-- Barre supérieure avec boutons -->
+        <Grid Padding="0,0,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Label Text="Nos véhicules" FontSize="24" FontAttributes="Bold" VerticalOptions="Center" />
+
+            <!-- Bouton Administration (visible seulement si connecté) -->
+            <Button Grid.Column="1" 
+                    Text="Administration" 
+                    Command="{Binding GoToAdminCommand}"
+                    IsVisible="{Binding IsLoggedIn}"
+                    Margin="0,0,10,0" />
+
+            <!-- Bouton Connexion/Déconnexion -->
+            <Button Grid.Column="2" 
+                    Text="{Binding LoginButtonText}" 
+                    Command="{Binding ToggleLoginCommand}" />
+        </Grid>
+
+        <!-- Loader -->
+        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+
+        <!-- Liste de véhicules -->
+        <CollectionView ItemsSource="{Binding Vehicles}" SelectionMode="Single">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="shared:ClientVehicleListDto">
+                    <Grid Padding="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Image Source="{Binding ImagePath}" 
+                               WidthRequest="100" 
+                               HeightRequest="80" 
+                               Aspect="AspectFill" />
+
+                        <StackLayout Grid.Column="1" Padding="10,0">
+                            <Label Text="{Binding Marque}" FontAttributes="Bold"/>
+                            <Label Text="{Binding Modele}" />
+                            <Label Text="{Binding PrixVente, StringFormat='Prix: {0} €'}" TextColor="Red"/>
+                        </StackLayout>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </StackLayout>
+</ContentPage>

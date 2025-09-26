@@ -1,4 +1,8 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using ExpressVoiture.MAUI.Services;
+using ExpressVoiture.MAUI.Services.Interface;
+using ExpressVoiture.MAUI.ViewModels;
+using ExpressVoiture.MAUI.Views;
+using Microsoft.Extensions.Logging;
 
 namespace ExpressVoiture.MAUI;
 
@@ -15,8 +19,46 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
 
+        builder.Services.AddHttpClient<IHomeService, HomeService>(client =>
+        {
+			#if ANDROID || IOS
+						client.BaseAddress = new Uri("https://10.0.2.2:7167/");
+			#else
+				client.BaseAddress = new Uri("https://localhost:7167/");
+			#endif
+		}).ConfigurePrimaryHttpMessageHandler(() =>
+        {
+            return new HttpClientHandler
+            {
+                ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true
+            };
+        });
+
+        builder.Services.AddHttpClient<IAuthService, AuthService>(client =>
+        {
+            #if ANDROID || IOS
+                        client.BaseAddress = new Uri("https://10.0.2.2:7167/");
+            #else
+				            client.BaseAddress = new Uri("https://localhost:7167/");
+            #endif
+        }).ConfigurePrimaryHttpMessageHandler(() =>
+        {
+            return new HttpClientHandler
+            {
+                ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true
+            };
+        });
+
+        builder.Services.AddSingleton<IUserStateService, UserStateService>();
+
+        builder.Services.AddTransient<LoginViewModel>();
+        builder.Services.AddTransient<LoginPage>();
+        builder.Services.AddTransient<VehicleListViewModel>();
+        builder.Services.AddTransient<VehicleListPage>();
+
+
 #if DEBUG
-		builder.Logging.AddDebug();
+        builder.Logging.AddDebug();
 #endif
 
 		return builder.Build();

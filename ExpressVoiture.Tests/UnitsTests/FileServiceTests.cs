@@ -23,7 +23,7 @@ namespace ExpressVoiture.Tests.UnitsTests
         public void CreateFile_ShouldReturnVehicle_WhenFileIsNull()
         {
             // Arrange
-            var vehicle = new AddOrUpdateVehicleViewModel();
+            var vehicle = new AddOrUpdateVehicleDto();
 
             // Act
             var result = _fileService.CreateFile(vehicle, null);
@@ -36,7 +36,7 @@ namespace ExpressVoiture.Tests.UnitsTests
         public void CreateFile_ShouldUpdateVehicleImagePath_WhenFileIsProvided()
         {
             // Arrange
-            var vehicle = new AddOrUpdateVehicleViewModel();
+            var vehicle = new AddOrUpdateVehicleDto();
             var fileMock = new Mock<IFormFile>();
             string wwwRootPath = "wwwroot";
             _mockWebHostEnvironment.Setup(x => x.WebRootPath).Returns(wwwRootPath);

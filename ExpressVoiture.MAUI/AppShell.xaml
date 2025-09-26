@@ -3,13 +3,25 @@
     x:Class="ExpressVoiture.MAUI.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:ExpressVoiture.MAUI"
+    xmlns:local="clr-namespace:ExpressVoiture.MAUI.Views"
     Shell.FlyoutBehavior="Flyout"
     Title="ExpressVoiture.MAUI">
 
+    <!-- Page principale - Liste des véhicules -->
     <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        Title="Véhicules"
+        ContentTemplate="{DataTemplate local:VehicleListPage}"
+        Route="VehicleListPage" />
+
+    <!-- Pages secondaires -->
+    <ShellContent
+        Title="Connexion"
+        ContentTemplate="{DataTemplate local:LoginPage}"
+        Route="LoginPage" />
+
+    <!--<ShellContent
+        Title="Administration"
+        ContentTemplate="{DataTemplate local:VehicleListAdminPage}"
+        Route="VehicleAdminPage" />-->
 
 </Shell>

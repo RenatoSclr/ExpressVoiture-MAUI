@@ -2,7 +2,7 @@
 
 namespace ExpressVoiture.Shared.ViewModel
 {
-    public class AddOrUpdateVehicleViewModel : IValidatableObject
+    public class AddOrUpdateVehicleDto : IValidatableObject
     {
         public int VoitureId { get; set; }
 

@@ -16,7 +16,7 @@ public class VehiclesController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<AdminVehicleListViewModel>>> GetAll()
+    public async Task<ActionResult<List<AdminVehicleListDto>>> GetAll()
     {
         var voitures = await _voitureService.GetListAdminVehicleViewModel();
 
@@ -24,7 +24,7 @@ public class VehiclesController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<AddOrUpdateVehicleViewModel>> GetById(int id)
+    public async Task<ActionResult<AddOrUpdateVehicleDto>> GetById(int id)
     {
         var vehicle = await _voitureService.GetAddOrUpdateVehicleViewModel(id);
         if (vehicle == null) return NotFound();
@@ -33,7 +33,7 @@ public class VehiclesController : ControllerBase
     }
 
     [HttpGet("delete/{id}")]
-    public async Task<ActionResult<DeleteVehicleViewModel>> GetDeleteVehicleById(int id)
+    public async Task<ActionResult<DeleteVehicleDto>> GetDeleteVehicleById(int id)
     {
         var vehicle = await _voitureService.GetDeleteVehicleViewModel(id);
         if (vehicle == null) return NotFound();
@@ -50,7 +50,7 @@ public class VehiclesController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult> AddVoitureAVendre([FromBody] AddOrUpdateVehicleViewModel voiture)
+    public async Task<ActionResult> AddVoitureAVendre([FromBody] AddOrUpdateVehicleDto voiture)
     {
         await _voitureService.SaveVoitureAVendre(voiture);
 
@@ -58,7 +58,7 @@ public class VehiclesController : ControllerBase
     }
 
     [HttpPut]
-    public async Task<ActionResult> UpdateVoitureAVendre([FromBody] AddOrUpdateVehicleViewModel voiture)
+    public async Task<ActionResult> UpdateVoitureAVendre([FromBody] AddOrUpdateVehicleDto voiture)
     {
         await _voitureService.UpdateVoitureAVendre(voiture);
 

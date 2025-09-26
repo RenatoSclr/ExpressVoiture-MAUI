@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using ExpressVoiture.Shared.AuthDto;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExpressVoiture.API.Controllers
@@ -42,17 +43,5 @@ namespace ExpressVoiture.API.Controllers
             await _signInManager.SignOutAsync();
             return Ok();
         }
-    }
-
-    public class LoginRequest
-    {
-        public string Email { get; set; }
-        public string Password { get; set; }
-    }
-
-    public class UserDto
-    {
-        public string Email { get; set; }
-        public List<string> Roles { get; set; }
     }
 }

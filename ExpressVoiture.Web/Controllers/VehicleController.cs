@@ -15,7 +15,7 @@ namespace ExpressVoiture.Controllers
         }   
         public async Task<IActionResult> Index()
         {
-            List<AdminVehicleListViewModel> voitureList = await _vehicleService.GetListAdminVehicleViewModel();
+            List<AdminVehicleListDto> voitureList = await _vehicleService.GetListAdminVehicleViewModel();
             return View(voitureList);
         }
 
@@ -24,18 +24,18 @@ namespace ExpressVoiture.Controllers
 
             if (id == null || id == 0)
             {
-                return View(new AddOrUpdateVehicleViewModel());
+                return View(new AddOrUpdateVehicleDto());
             }
             else
             {
-                AddOrUpdateVehicleViewModel voitureAModifier = await _vehicleService.GetAddOrUpdateVehicleViewModel(id);
+                AddOrUpdateVehicleDto voitureAModifier = await _vehicleService.GetAddOrUpdateVehicleViewModel(id);
                 return View(voitureAModifier);
             }
 
         }
 
         [HttpPost]
-        public IActionResult Upsert(AddOrUpdateVehicleViewModel voiture, IFormFile? file)
+        public IActionResult Upsert(AddOrUpdateVehicleDto voiture, IFormFile? file)
         {
 
             if (ModelState.IsValid)
@@ -69,7 +69,7 @@ namespace ExpressVoiture.Controllers
                 return NotFound();
             }
 
-            DeleteVehicleViewModel? voiture = await _vehicleService.GetDeleteVehicleViewModel(id);
+            DeleteVehicleDto? voiture = await _vehicleService.GetDeleteVehicleViewModel(id);
             if (voiture == null)
             {
                 return NotFound();

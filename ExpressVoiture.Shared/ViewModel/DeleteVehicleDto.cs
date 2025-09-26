@@ -2,7 +2,7 @@
 
 namespace ExpressVoiture.Shared.ViewModel
 {
-    public class DeleteVehicleViewModel
+    public class DeleteVehicleDto
     {
 
         public int VoitureId { get; set; }

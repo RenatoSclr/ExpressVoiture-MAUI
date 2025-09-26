@@ -14,25 +14,25 @@ namespace ExpressVoiture.Services
             _httpClient = httpClient;
         }
 
-        public async Task<List<AdminVehicleListViewModel>> GetListAdminVehicleViewModel()
+        public async Task<List<AdminVehicleListDto>> GetListAdminVehicleViewModel()
         {
-            var result = await _httpClient.GetFromJsonAsync<List<AdminVehicleListViewModel>>("api/vehicles");
-            return result ?? new List<AdminVehicleListViewModel>();
+            var result = await _httpClient.GetFromJsonAsync<List<AdminVehicleListDto>>("api/vehicles");
+            return result ?? new List<AdminVehicleListDto>();
         }
 
-        public async Task<AddOrUpdateVehicleViewModel?> GetAddOrUpdateVehicleViewModel(int? id)
+        public async Task<AddOrUpdateVehicleDto?> GetAddOrUpdateVehicleViewModel(int? id)
         {
             if (id == null) return null;
-            return await _httpClient.GetFromJsonAsync<AddOrUpdateVehicleViewModel>($"api/vehicles/{id}");
+            return await _httpClient.GetFromJsonAsync<AddOrUpdateVehicleDto>($"api/vehicles/{id}");
         }
 
-        public async Task SaveVoitureAVendre(AddOrUpdateVehicleViewModel voitureAAjouter, IFormFile file)
+        public async Task SaveVoitureAVendre(AddOrUpdateVehicleDto voitureAAjouter, IFormFile file)
         {
             voitureAAjouter = _fileService.CreateFile(voitureAAjouter, file);
             await _httpClient.PostAsJsonAsync("api/vehicles", voitureAAjouter);
         }
 
-        public async Task UpdateVoitureAVendre(AddOrUpdateVehicleViewModel voitureAAjouter, IFormFile file)
+        public async Task UpdateVoitureAVendre(AddOrUpdateVehicleDto voitureAAjouter, IFormFile file)
         {
             voitureAAjouter = _fileService.CreateFile(voitureAAjouter, file);
 
@@ -59,9 +59,9 @@ namespace ExpressVoiture.Services
 
         }
 
-        public async Task<DeleteVehicleViewModel> GetDeleteVehicleViewModel(int? id)
+        public async Task<DeleteVehicleDto> GetDeleteVehicleViewModel(int? id)
         {
-            var resposnse = await _httpClient.GetFromJsonAsync<DeleteVehicleViewModel>($"api/vehicles/delete/{id}");
+            var resposnse = await _httpClient.GetFromJsonAsync<DeleteVehicleDto>($"api/vehicles/delete/{id}");
             return resposnse;
         }
     }

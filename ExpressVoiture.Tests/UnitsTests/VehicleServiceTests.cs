@@ -88,7 +88,7 @@ namespace ExpressVoiture.Tests.UnitsTests
 
             var listResult = result.ToList();
             // Assert
-            Assert.True(result is List<AdminVehicleListViewModel>);
+            Assert.True(result is List<AdminVehicleListDto>);
             Assert.Equal(3, result.Count);
             Assert.Equal("Mazda", result[0].Marque);
             Assert.Equal("Jeep", result[1].Marque);
@@ -111,7 +111,7 @@ namespace ExpressVoiture.Tests.UnitsTests
             var result = await voitureService.GetAddOrUpdateVehicleViewModel(1);
 
             // Assert
-            Assert.True(result is AddOrUpdateVehicleViewModel);
+            Assert.True(result is AddOrUpdateVehicleDto);
             Assert.Equal(voiture.VoitureId, result.VoitureId);
             Assert.Equal(voiture.Annee, result.Annee);
             Assert.Equal(voiture.Modele, result.Modele);
@@ -132,7 +132,7 @@ namespace ExpressVoiture.Tests.UnitsTests
         public async Task SaveVoitureAVendre_ShouldAddAndSaveVoiture()
         {
             // Arrange
-            var voitureAAjouter = new AddOrUpdateVehicleViewModel
+            var voitureAAjouter = new AddOrUpdateVehicleDto
             {
                 Annee = 2019,
                 Marque = "Mazda",
@@ -178,7 +178,7 @@ namespace ExpressVoiture.Tests.UnitsTests
         public async Task UpdateVoitureAVendre_ShouldUpdateAndSaveVoiture()
         {
             // Arrange
-            var voitureAAjouter = new AddOrUpdateVehicleViewModel
+            var voitureAAjouter = new AddOrUpdateVehicleDto
             {
                 VoitureId = 1,
                 Annee = 2019,
@@ -261,7 +261,7 @@ namespace ExpressVoiture.Tests.UnitsTests
             var result = await voitureService.GetDeleteVehicleViewModel(voiture.VoitureId);
 
             // Assert
-            Assert.True(result is DeleteVehicleViewModel);
+            Assert.True(result is DeleteVehicleDto);
             Assert.Equal(voiture.VoitureId, result.VoitureId);
             Assert.Equal(voiture.Annee, result.Annee);
             Assert.Equal(voiture.Modele, result.Modele);

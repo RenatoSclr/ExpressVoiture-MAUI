@@ -85,7 +85,7 @@ namespace ExpressVoiture.Tests.UnitsTests
             var result = await voitureServiceApi.GetAllClientVehicle(includeProperties: "Reparation,Vente");
             var listResult = result.ToList();
             // Assert
-            Assert.True(result is List<ClientVehicleListViewModel>);
+            Assert.True(result is List<ClientVehicleListDto>);
             Assert.Equal(3, listResult.Count);
             Assert.Equal("Mazda", listResult[0].Marque);
             Assert.Equal("Jeep", listResult[1].Marque);
@@ -111,7 +111,7 @@ namespace ExpressVoiture.Tests.UnitsTests
             var result = await voitureService.GetClientDetailedVehicle(1);
 
             // Assert
-            Assert.True(result is ClientDetailedVehicleViewModel);
+            Assert.True(result is ClientDetailedVehicleDto);
             Assert.Equal(voiture.Annee, result.Annee);
             Assert.Equal(voiture.Modele, result.Modele);
             Assert.Equal(voiture.Marque, result.Marque);

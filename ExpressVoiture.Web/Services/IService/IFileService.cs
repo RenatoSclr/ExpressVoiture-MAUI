@@ -4,7 +4,7 @@ namespace ExpressVoiture.Services.IService
 {
     public interface IFileService
     {
-        AddOrUpdateVehicleViewModel CreateFile(AddOrUpdateVehicleViewModel voiture, IFormFile file);
+        AddOrUpdateVehicleDto CreateFile(AddOrUpdateVehicleDto voiture, IFormFile file);
         void DeleteFileByVehiculeId(int id);
     }
 }

@@ -29,6 +29,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client Mobile", "Client Mobile", "{12171E02-EB98-446D-A6FA-9A4A571366AE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpressVoiture.MAUI", "ExpressVoiture.MAUI\ExpressVoiture.MAUI.csproj", "{D1589086-80A9-4EE9-85EE-095FB4C4A326}"
+	ProjectSection(ProjectDependencies) = postProject
+		{51028A89-E66C-43EA-9F43-D2B8A6FB01BC} = {51028A89-E66C-43EA-9F43-D2B8A6FB01BC}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -66,6 +69,7 @@ Global
 		{3307F5CF-57D2-42B1-9A9E-B8D4BC1B58BA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D1589086-80A9-4EE9-85EE-095FB4C4A326}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D1589086-80A9-4EE9-85EE-095FB4C4A326}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1589086-80A9-4EE9-85EE-095FB4C4A326}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{D1589086-80A9-4EE9-85EE-095FB4C4A326}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1589086-80A9-4EE9-85EE-095FB4C4A326}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection

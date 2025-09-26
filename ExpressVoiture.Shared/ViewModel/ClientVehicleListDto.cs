@@ -1,6 +1,6 @@
 ﻿namespace ExpressVoiture.Shared.ViewModel
 {
-    public class ClientVehicleListViewModel
+    public class ClientVehicleListDto
     {
         public int VoitureId { get; set; }
         public int Annee { get; set; }
