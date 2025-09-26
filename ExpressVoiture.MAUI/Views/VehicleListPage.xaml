@@ -7,8 +7,9 @@
              x:DataType="viewmodel:VehicleListViewModel"
              Title="Nos véhicules">
 
-    <StackLayout Padding="10">
-        <!-- Barre supérieure avec boutons -->
+    <StackLayout Padding="10" Spacing="10">
+
+        <!-- Barre supérieure -->
         <Grid Padding="0,0,0,10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -18,11 +19,11 @@
 
             <Label Text="Nos véhicules" FontSize="24" FontAttributes="Bold" VerticalOptions="Center" />
 
-            <!-- Bouton Administration (visible seulement si connecté) -->
+            <!-- Bouton Administration -->
             <Button Grid.Column="1" 
                     Text="Administration" 
-                    Command="{Binding GoToAdminCommand}"
-                    IsVisible="{Binding IsLoggedIn}"
+                    Command="{Binding GoToAdminCommand}" 
+                    IsVisible="{Binding IsLoggedIn}" 
                     Margin="0,0,10,0" />
 
             <!-- Bouton Connexion/Déconnexion -->
@@ -32,34 +33,62 @@
         </Grid>
 
         <!-- Loader -->
-        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" HorizontalOptions="Center" />
 
-        <!-- Liste de véhicules -->
-        <CollectionView ItemsSource="{Binding Vehicles}" SelectionMode="Single">
+        <!-- Liste des véhicules -->
+        <CollectionView ItemsSource="{Binding Vehicles}" SelectionMode="Single" 
+                SelectedItem="{Binding SelectedVehicle, Mode=TwoWay}"
+                SelectionChanged="CollectionView_SelectionChanged">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="shared:ClientVehicleListDto">
-                    <Grid Padding="10">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
+                    <Frame CornerRadius="10"
+                           BorderColor="#CCCCCC"
+                           Padding="10"
+                           Margin="0,0,0,10"
+                           BackgroundColor="White"
+                           HasShadow="True">
 
-                        <Image Source="{Binding ImagePath}" 
-                               WidthRequest="100" 
-                               HeightRequest="80" 
-                               Aspect="AspectFill" />
+                        <!-- TapGestureRecognizer pour rendre la Frame cliquable -->
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:VehicleListViewModel}}, Path=VehicleSelectedCommand}"
+                                                  CommandParameter="{Binding .}" />
+                        </Frame.GestureRecognizers>
 
-                        <StackLayout Grid.Column="1" Padding="10,0">
-                            <Label Text="{Binding Marque}" FontAttributes="Bold"/>
-                            <Label Text="{Binding Modele}" />
-                            <Label Text="{Binding PrixVente, StringFormat='Prix: {0} €'}" TextColor="Red"/>
-                        </StackLayout>
-                    </Grid>
+                        <Grid ColumnSpacing="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="120" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Image du véhicule -->
+                            <Image Source="{Binding ImagePath}" 
+                                   WidthRequest="100" 
+                                   HeightRequest="80" 
+                                   Aspect="AspectFill" />
+
+                            <!-- Informations du véhicule -->
+                            <StackLayout Grid.Column="1" Spacing="5">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Text="{Binding Marque}" FontAttributes="Bold" FontSize="16" Grid.Column="0"/>
+                                    <Label Text="{Binding PrixVente, StringFormat='Prix: {0} €'}" Grid.Column="1" TextColor="Red" FontAttributes="Bold"/>
+                                </Grid>
+
+                                <Label Text="{Binding Modele, StringFormat='Modèle: {0}'}" FontSize="14" TextColor="#555555"/>
+                                <Label Text="{Binding Annee, StringFormat='Année: {0}'}" FontSize="14" TextColor="#555555"/>
+                                <Label Text="{Binding Finition, StringFormat='Finition: {0}'}" FontSize="14" TextColor="#555555"/>
+
+                                <Label Text="{Binding DateVente, StringFormat='Vendu le: {0:dd/MM/yyyy}'}" FontSize="12" TextColor="#777777" IsVisible="{Binding DateVente, Converter={StaticResource NullToBoolConverter}}"/>
+                            </StackLayout>
+                        </Grid>
+                    </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
+
     </StackLayout>
 </ContentPage>

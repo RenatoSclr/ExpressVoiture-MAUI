@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using ExpressVoiture.MAUI.Services.Interface;
+using ExpressVoiture.MAUI.Views;
 using ExpressVoiture.Shared.ViewModel;
 using System.Collections.ObjectModel;
 
@@ -71,13 +72,11 @@ namespace ExpressVoiture.MAUI.ViewModels
         {
             if (IsLoggedIn)
             {
-                // Déconnexion
                 await _authService.LogoutAsync();
                 _userStateService.SetLoginState(false);
             }
             else
             {
-                // Navigation vers page de connexion
                 await Shell.Current.GoToAsync("//LoginPage");
             }
         }
@@ -87,13 +86,21 @@ namespace ExpressVoiture.MAUI.ViewModels
         {
             if (IsLoggedIn)
             {
-                await Shell.Current.GoToAsync("//VehicleAdminPage");
+                await Shell.Current.GoToAsync(nameof(AdminVehicleListPage));
             }
         }
 
         private void UpdateLoginButtonText()
         {
             LoginButtonText = IsLoggedIn ? "Déconnexion" : "Connexion";
+        }
+
+        [RelayCommand]
+        public async Task VehicleSelectedAsync(ClientVehicleListDto vehicle)
+        {
+            if (vehicle == null) return;
+
+            await Shell.Current.GoToAsync($"{nameof(VehicleDetailsPage)}?voitureId={vehicle.VoitureId}");
         }
     }
 }

@@ -22,7 +22,7 @@ public static class MauiProgram
         builder.Services.AddHttpClient<IHomeService, HomeService>(client =>
         {
 			#if ANDROID || IOS
-						client.BaseAddress = new Uri("https://10.0.2.2:7167/");
+				client.BaseAddress = new Uri("https://10.0.2.2:7167/");
 			#else
 				client.BaseAddress = new Uri("https://localhost:7167/");
 			#endif
@@ -37,9 +37,25 @@ public static class MauiProgram
         builder.Services.AddHttpClient<IAuthService, AuthService>(client =>
         {
             #if ANDROID || IOS
-                        client.BaseAddress = new Uri("https://10.0.2.2:7167/");
+                    client.BaseAddress = new Uri("https://10.0.2.2:7167/");
             #else
-				            client.BaseAddress = new Uri("https://localhost:7167/");
+				    client.BaseAddress = new Uri("https://localhost:7167/");
+            #endif
+        }).ConfigurePrimaryHttpMessageHandler(() =>
+        {
+            return new HttpClientHandler
+            {
+                ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true
+            };
+        });
+
+
+        builder.Services.AddHttpClient<IVehicleAdminService, VehicleAdminService>(client =>
+        {
+            #if ANDROID || IOS
+                    client.BaseAddress = new Uri("https://10.0.2.2:7167/");
+            #else
+				    client.BaseAddress = new Uri("https://localhost:7167/");
             #endif
         }).ConfigurePrimaryHttpMessageHandler(() =>
         {
@@ -51,8 +67,11 @@ public static class MauiProgram
 
         builder.Services.AddSingleton<IUserStateService, UserStateService>();
 
+        builder.Services.AddTransient<VehicleAdminListViewModel>();
+        builder.Services.AddTransient<VehicleDetailsViewModel>();
         builder.Services.AddTransient<LoginViewModel>();
         builder.Services.AddTransient<LoginPage>();
+        builder.Services.AddTransient<AdminVehicleListPage>();
         builder.Services.AddTransient<VehicleListViewModel>();
         builder.Services.AddTransient<VehicleListPage>();
 

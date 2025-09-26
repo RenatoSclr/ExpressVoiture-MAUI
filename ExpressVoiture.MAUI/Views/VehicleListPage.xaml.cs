@@ -1,4 +1,5 @@
 using ExpressVoiture.MAUI.ViewModels;
+using ExpressVoiture.Shared.ViewModel;
 
 namespace ExpressVoiture.MAUI.Views
 {
@@ -20,6 +21,14 @@ namespace ExpressVoiture.MAUI.Views
             if (_viewModel.Vehicles == null || !_viewModel.Vehicles.Any())
             {
                 await _viewModel.LoadVehiclesAsync();
+            }
+        }
+
+        private async void CollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.CurrentSelection.FirstOrDefault() is ClientVehicleListDto vehicle)
+            {
+                await ((VehicleListViewModel)BindingContext).VehicleSelectedAsync(vehicle);
             }
         }
     }

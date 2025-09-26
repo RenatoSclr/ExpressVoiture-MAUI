@@ -25,7 +25,6 @@ namespace ExpressVoiture.MAUI.Services
             }
             catch (HttpRequestException)
             {
-                // Retourner une liste vide en cas d'erreur réseau
                 return new List<ClientVehicleListDto>();
             }
         }

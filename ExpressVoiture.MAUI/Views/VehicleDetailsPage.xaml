@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:ExpressVoiture.MAUI.ViewModels"
+             xmlns:shared="clr-namespace:ExpressVoiture.Shared.ViewModel;assembly=ExpressVoiture.Shared"
+             x:Class="ExpressVoiture.MAUI.Views.VehicleDetailsPage"
+             x:DataType="viewmodel:VehicleDetailsViewModel"
+             Title="Détails du véhicule">
+
+    <ScrollView Padding="10">
+        <StackLayout Spacing="10">
+            <Image Source="{Binding Vehicle.ImagePath}" 
+                   HeightRequest="200" Aspect="AspectFill" />
+
+            <Label Text="{Binding Vehicle.Marque}" FontSize="24" FontAttributes="Bold"/>
+            <Label Text="{Binding Vehicle.Modele}" FontSize="20"/>
+            <Label Text="{Binding Vehicle.Annee, StringFormat='Année: {0}'}"/>
+            <Label Text="{Binding Vehicle.Finition, StringFormat='Finition: {0}'}"/>
+            <Label Text="{Binding Vehicle.CodeVIN, StringFormat='Code VIN: {0}'}"/>
+            <Label Text="{Binding Vehicle.DescriptionReparations, StringFormat='Réparations: {0}'}"/>
+            <Label Text="{Binding Vehicle.CoutReparations, StringFormat='Coût des réparations: {0} €'}"/>
+            <Label Text="{Binding Vehicle.DateDisponibiliteVente, StringFormat='Disponible le: {0:dd/MM/yyyy}'}"/>
+            <Label Text="{Binding Vehicle.PrixVente, StringFormat='Prix de vente: {0} €'}"/>
+            <Label Text="{Binding Vehicle.DateVente, StringFormat='Vendu le: {0:dd/MM/yyyy}'}"
+                   IsVisible="{Binding Vehicle.DateVente, Converter={StaticResource NullToBoolConverter}}"/>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

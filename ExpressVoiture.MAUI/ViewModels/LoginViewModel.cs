@@ -36,10 +36,8 @@ namespace ExpressVoiture.MAUI.ViewModels
 
                 if (success)
                 {
-                    // Mettre à jour l'état de connexion
                     _userStateService.SetLoginState(true);
 
-                    // Retour vers la page principale
                     await Shell.Current.GoToAsync("//VehicleListPage");
                 }
                 else

@@ -19,9 +19,4 @@
         ContentTemplate="{DataTemplate local:LoginPage}"
         Route="LoginPage" />
 
-    <!--<ShellContent
-        Title="Administration"
-        ContentTemplate="{DataTemplate local:VehicleListAdminPage}"
-        Route="VehicleAdminPage" />-->
-
 </Shell>
