@@ -16,7 +16,9 @@ public partial class AdminVehicleListPage : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-        if (!_viewModel.Vehicles.Any())
-            await _viewModel.LoadVehiclesAsync();
+        if (BindingContext is VehicleAdminListViewModel vm)
+        {
+            await vm.LoadVehiclesAsync();
+        }
     }
 }

@@ -68,14 +68,22 @@ public static class MauiProgram
         builder.Services.AddSingleton<IUserStateService, UserStateService>();
 
         builder.Services.AddTransient<VehicleAdminListViewModel>();
+        builder.Services.AddTransient<AdminVehicleListPage>();
+
         builder.Services.AddTransient<VehicleDetailsViewModel>();
+        builder.Services.AddTransient<VehicleDetailsPage>();
+
         builder.Services.AddTransient<LoginViewModel>();
         builder.Services.AddTransient<LoginPage>();
-        builder.Services.AddTransient<AdminVehicleListPage>();
+
         builder.Services.AddTransient<VehicleListViewModel>();
         builder.Services.AddTransient<VehicleListPage>();
+
         builder.Services.AddTransient<AddVehiclePage>();
         builder.Services.AddTransient<AddVehicleViewModel>();
+
+        builder.Services.AddTransient<UpdateVehicleViewModel>();
+        builder.Services.AddTransient<UpdateVehiclePage>();
 
 
 #if DEBUG

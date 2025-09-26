@@ -76,5 +76,13 @@ namespace ExpressVoiture.MAUI.ViewModels
                 IsBusy = false;
             }
         }
+
+        [RelayCommand]
+        public async Task UpdateVehicleAsync(AdminVehicleListDto vehicle)
+        {
+            if (vehicle is null) return;
+
+            await Shell.Current.GoToAsync($"{nameof(UpdateVehiclePage)}?voitureId={vehicle.VoitureId}");
+        }
     }
 }

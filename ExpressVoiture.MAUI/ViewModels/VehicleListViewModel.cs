@@ -98,7 +98,7 @@ namespace ExpressVoiture.MAUI.ViewModels
         [RelayCommand]
         public async Task VehicleSelectedAsync(ClientVehicleListDto vehicle)
         {
-            if (vehicle == null) return;
+            if (vehicle is null) return;
 
             await Shell.Current.GoToAsync($"{nameof(VehicleDetailsPage)}?voitureId={vehicle.VoitureId}");
         }

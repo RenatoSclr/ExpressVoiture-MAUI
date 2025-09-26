@@ -7,5 +7,7 @@ namespace ExpressVoiture.MAUI.Services.Interface
         Task<List<AdminVehicleListDto>> GetVehiclesAsync();
         Task<bool> AddVehicleAsync(AddOrUpdateVehicleDto vehicle);
         Task<bool> DeleteVehicleAsync(int id);
+        Task<bool> UpdateVehicleAsync(AddOrUpdateVehicleDto vehicle);
+        Task<AddOrUpdateVehicleDto> GetVehicleByIdAsync(int vehicleId);
     }
 }
