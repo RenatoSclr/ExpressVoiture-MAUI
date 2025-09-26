@@ -5,77 +5,99 @@
              x:Class="ExpressVoiture.MAUI.Views.AdminVehicleListPage"
              x:DataType="viewmodel:VehicleAdminListViewModel">
     <ScrollView>
-        
-    
-   <StackLayout Padding="10" Spacing="10">
+        <StackLayout Padding="10" Spacing="10">
 
-        <!-- Bouton Ajouter -->
-        <Button Text="Ajouter un véhicule"
-                Command="{Binding CreateVehicleCommand}"
-                BackgroundColor="#007AFF"
-                TextColor="White"
-                CornerRadius="8"
-                HeightRequest="50" />
+            <!-- Bouton Ajouter -->
+            <Button Text="Ajouter un véhicule"
+                    Command="{Binding CreateVehicleCommand}"
+                    BackgroundColor="#007AFF"
+                    TextColor="White"
+                    CornerRadius="8"
+                    HeightRequest="50" />
 
-        <!-- Loader -->
-        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" HorizontalOptions="Center" />
+            <!-- Loader -->
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" HorizontalOptions="Center" />
 
-        <!-- Liste des véhicules -->
-        <CollectionView ItemsSource="{Binding Vehicles}" SelectionMode="Single">
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="shared:AdminVehicleListDto">
-                    <Frame CornerRadius="10"
-                           BorderColor="#CCCCCC"
-                           Padding="10"
-                           Margin="0,0,0,10"
-                           BackgroundColor="White"
-                           HasShadow="True">
-                        <Grid RowSpacing="5">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/> 
-                                <RowDefinition Height="Auto"/> 
-                                <RowDefinition Height="Auto"/> 
-                            </Grid.RowDefinitions>
-              
-                            <Grid Grid.Row="0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
+            <!-- Liste des véhicules -->
+            <CollectionView ItemsSource="{Binding Vehicles}" SelectionMode="Single">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="shared:AdminVehicleListDto">
+                        <Frame CornerRadius="10"
+                               BorderColor="#CCCCCC"
+                               Padding="10"
+                               Margin="0,0,0,10"
+                               BackgroundColor="White"
+                               HasShadow="True">
+                            <Grid RowSpacing="5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <!-- Nouvelle ligne pour les boutons -->
+                                </Grid.RowDefinitions>
 
-                                <Label Text="{Binding Marque}" Grid.Column="0" FontAttributes="Bold" FontSize="16"/>
-                                <Label Text="{Binding Modele}" Grid.Column="1" HorizontalOptions="Center" FontSize="16"/>
-                                <Label Text="{Binding PrixVente, StringFormat='Prix: {0} €'}" Grid.Column="2" HorizontalOptions="End" TextColor="Red" FontAttributes="Bold"/>
+                                <!-- Ligne 1 -->
+                                <Grid Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Text="{Binding Marque}" Grid.Column="0" FontAttributes="Bold" FontSize="16"/>
+                                    <Label Text="{Binding Modele}" Grid.Column="1" HorizontalOptions="Center" FontSize="16"/>
+                                    <Label Text="{Binding PrixVente, StringFormat='Prix: {0} €'}" Grid.Column="2" HorizontalOptions="End" TextColor="Red" FontAttributes="Bold"/>
+                                </Grid>
+
+                                <!-- Ligne 2 -->
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Text="{Binding Annee, StringFormat='Année: {0}'}" Grid.Column="0" FontSize="14" TextColor="#555555"/>
+                                    <Label Text="{Binding Finition, StringFormat='Finition: {0}'}" Grid.Column="1" HorizontalOptions="Center" FontSize="14" TextColor="#555555"/>
+                                    <Label Text="{Binding CodeVIN, StringFormat='VIN: {0}'}" Grid.Column="2" HorizontalOptions="End" FontSize="14" TextColor="#555555"/>
+                                </Grid>
+
+                                <!-- Ligne 3 -->
+                                <StackLayout Grid.Row="2" Spacing="3">
+                                    <Label Text="{Binding DateAchat, StringFormat='Date Achat: {0:dd/MM/yyyy}'}" FontSize="12" TextColor="#777777"/>
+                                    <Label Text="{Binding PrixAchat, StringFormat='Prix Achat: {0} €'}" FontSize="12" TextColor="#777777"/>
+                                    <Label Text="{Binding DescriptionReparations, StringFormat='Réparations: {0}'}" FontSize="12" TextColor="#777777"/>
+                                    <Label Text="{Binding CoutReparations, StringFormat='Coût Réparations: {0} €'}" FontSize="12" TextColor="#777777"/>
+                                    <Label Text="{Binding DateDisponibiliteVente, StringFormat='Disponible à la vente: {0:dd/MM/yyyy}'}" FontSize="12" TextColor="#777777"/>
+                                    <Label Text="{Binding DateVente, StringFormat='Vendu le: {0:dd/MM/yyyy}'}" FontSize="12" TextColor="#777777"/>
+                                </StackLayout>
+
+                                <!-- Ligne 4 : Boutons actions -->
+                                <StackLayout Grid.Row="3" Orientation="Horizontal" HorizontalOptions="Center" Spacing="10" Margin="0,5,0,0">
+                                    <Button Text="Mettre à jour"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:VehicleAdminListViewModel}}, Path=UpdateVehicleCommand}"
+                                            CommandParameter="{Binding .}"
+                                            BackgroundColor="Orange"
+                                            TextColor="White"
+                                            CornerRadius="8"
+                                            HeightRequest="40"
+                                            WidthRequest="120" />
+
+                                    <Button Text="Supprimer"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:VehicleAdminListViewModel}}, Path=DeleteVehicleCommand}"
+                                            CommandParameter="{Binding .}"
+                                            BackgroundColor="Red"
+                                            TextColor="White"
+                                            CornerRadius="8"
+                                            HeightRequest="40"
+                                            WidthRequest="120" />
+                                </StackLayout>
                             </Grid>
-
-                            <!-- Ligne secondaire : Année / Finition / Code VIN -->
-                            <Grid Grid.Row="1">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-
-                                <Label Text="{Binding Annee, StringFormat='Année: {0}'}" Grid.Column="0" FontSize="14" TextColor="#555555"/>
-                                <Label Text="{Binding Finition, StringFormat='Finition: {0}'}" Grid.Column="1" HorizontalOptions="Center" FontSize="14" TextColor="#555555"/>
-                                <Label Text="{Binding CodeVIN, StringFormat='VIN: {0}'}" Grid.Column="2" HorizontalOptions="End" FontSize="14" TextColor="#555555"/>
-                            </Grid>
-
-                            <!-- Ligne complémentaire : Dates / Prix Achat / Réparations -->
-                            <StackLayout Grid.Row="2" Spacing="3">
-                                <Label Text="{Binding DateAchat, StringFormat='Date Achat: {0:dd/MM/yyyy}'}" FontSize="12" TextColor="#777777"/>
-                                <Label Text="{Binding PrixAchat, StringFormat='Prix Achat: {0} €'}" FontSize="12" TextColor="#777777"/>
-                                <Label Text="{Binding DescriptionReparations, StringFormat='Réparations: {0}'}" FontSize="12" TextColor="#777777"/>
-                                <Label Text="{Binding CoutReparations, StringFormat='Coût Réparations: {0} €'}" FontSize="12" TextColor="#777777"/>
-                                <Label Text="{Binding DateDisponibiliteVente, StringFormat='Disponible à la vente: {0:dd/MM/yyyy}'}" FontSize="12" TextColor="#777777"/>
-                                <Label Text="{Binding DateVente, StringFormat='Vendu le: {0:dd/MM/yyyy}'}" FontSize="12" TextColor="#777777"/>
-                            </StackLayout>
-                        </Grid>
-                    </Frame>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-    </StackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
     </ScrollView>
 </ContentPage>

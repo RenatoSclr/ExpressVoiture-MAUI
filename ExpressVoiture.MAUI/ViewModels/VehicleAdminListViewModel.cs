@@ -37,5 +37,44 @@ namespace ExpressVoiture.MAUI.ViewModels
         {
             await Shell.Current.GoToAsync(nameof(AddVehiclePage));
         }
+
+        [RelayCommand]
+        public async Task DeleteVehicleAsync(AdminVehicleListDto vehicle)
+        {
+            if (vehicle == null) return;
+
+            // Demande confirmation
+            bool confirm = await Shell.Current.DisplayAlert(
+                "Confirmation",
+                $"Voulez-vous vraiment supprimer {vehicle.Marque} {vehicle.Modele} ?",
+                "Oui", "Non");
+
+            if (!confirm)
+                return;
+
+            IsBusy = true;
+            try
+            {
+                var success = await _vehicleService.DeleteVehicleAsync(vehicle.VoitureId);
+
+                if (success)
+                {
+                    Vehicles.Remove(vehicle);
+                    await Shell.Current.DisplayAlert("Succès", "Véhicule supprimé avec succès.", "OK");
+                }
+                else
+                {
+                    await Shell.Current.DisplayAlert("Erreur", "La suppression a échoué.", "OK");
+                }
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Erreur", ex.Message, "OK");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
     }
 }

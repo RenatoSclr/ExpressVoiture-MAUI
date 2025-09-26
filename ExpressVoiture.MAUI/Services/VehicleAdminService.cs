@@ -23,5 +23,11 @@ namespace ExpressVoiture.MAUI.Services
             var response = await _httpClient.PostAsJsonAsync("api/Vehicles", vehicle);
             return response.IsSuccessStatusCode;
         }
+
+        public async Task<bool> DeleteVehicleAsync(int id)
+        {
+            var response = await _httpClient.DeleteAsync($"api/Vehicles/{id}");
+            return response.IsSuccessStatusCode;
+        }
     }
 }
