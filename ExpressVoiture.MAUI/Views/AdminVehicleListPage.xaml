@@ -4,7 +4,9 @@
              xmlns:shared="clr-namespace:ExpressVoiture.Shared.ViewModel;assembly=ExpressVoiture.Shared"
              x:Class="ExpressVoiture.MAUI.Views.AdminVehicleListPage"
              x:DataType="viewmodel:VehicleAdminListViewModel">
-
+    <ScrollView>
+        
+    
    <StackLayout Padding="10" Spacing="10">
 
         <!-- Bouton Ajouter -->
@@ -30,12 +32,11 @@
                            HasShadow="True">
                         <Grid RowSpacing="5">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/> <!-- Ligne principale -->
-                                <RowDefinition Height="Auto"/> <!-- Ligne secondaire -->
-                                <RowDefinition Height="Auto"/> <!-- Ligne complémentaire -->
+                                <RowDefinition Height="Auto"/> 
+                                <RowDefinition Height="Auto"/> 
+                                <RowDefinition Height="Auto"/> 
                             </Grid.RowDefinitions>
-
-                            <!-- Ligne principale : Marque / Modèle / Prix Vente -->
+              
                             <Grid Grid.Row="0">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
@@ -76,4 +77,5 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
     </StackLayout>
+    </ScrollView>
 </ContentPage>

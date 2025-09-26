@@ -74,6 +74,8 @@ public static class MauiProgram
         builder.Services.AddTransient<AdminVehicleListPage>();
         builder.Services.AddTransient<VehicleListViewModel>();
         builder.Services.AddTransient<VehicleListPage>();
+        builder.Services.AddTransient<AddVehiclePage>();
+        builder.Services.AddTransient<AddVehicleViewModel>();
 
 
 #if DEBUG

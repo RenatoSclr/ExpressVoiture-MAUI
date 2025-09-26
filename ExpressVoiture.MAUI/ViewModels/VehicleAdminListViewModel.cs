@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using ExpressVoiture.MAUI.Services.Interface;
+using ExpressVoiture.MAUI.Views;
 using ExpressVoiture.Shared.ViewModel;
 using System.Collections.ObjectModel;
 
@@ -29,6 +30,12 @@ namespace ExpressVoiture.MAUI.ViewModels
             var list = await _vehicleService.GetVehiclesAsync();
             Vehicles = new ObservableCollection<AdminVehicleListDto>(list);
             IsBusy = false;
+        }
+
+        [RelayCommand]
+        public async Task CreateVehicleAsync()
+        {
+            await Shell.Current.GoToAsync(nameof(AddVehiclePage));
         }
     }
 }

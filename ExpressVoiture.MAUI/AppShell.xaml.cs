@@ -10,6 +10,7 @@ namespace ExpressVoiture.MAUI
 
             Routing.RegisterRoute(nameof(VehicleDetailsPage), typeof(VehicleDetailsPage));
             Routing.RegisterRoute(nameof(AdminVehicleListPage), typeof(AdminVehicleListPage));
+            Routing.RegisterRoute(nameof(AddVehiclePage), typeof(AddVehiclePage));
         }
     }
 }

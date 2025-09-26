@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:ExpressVoiture.MAUI.ViewModels"
+             x:Class="ExpressVoiture.MAUI.Views.AddVehiclePage"
+             x:DataType="viewmodel:AddVehicleViewModel"
+             Title="Ajouter un véhicule">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <Label Text="Année" />
+            <Entry Keyboard="Numeric"
+               Text="{Binding Vehicle.Annee, Mode=TwoWay}" />
+
+            <Label Text="Marque" />
+            <Entry Text="{Binding Vehicle.Marque, Mode=TwoWay}" />
+
+            <Label Text="Modèle" />
+            <Entry Text="{Binding Vehicle.Modele, Mode=TwoWay}" />
+
+            <Label Text="Finition" />
+            <Entry Text="{Binding Vehicle.Finition, Mode=TwoWay}" />
+
+            <Label Text="Date d'achat" />
+            <DatePicker Date="{Binding Vehicle.DateAchat, Mode=TwoWay}" />
+
+            <Label Text="Prix d'achat (€)" />
+            <Entry Keyboard="Numeric"
+               Text="{Binding Vehicle.PrixAchat, Mode=TwoWay}" />
+
+            <Label Text="Code VIN" />
+            <Entry Text="{Binding Vehicle.CodeVIN, Mode=TwoWay}" />
+
+            <Label Text="Description des réparations" />
+            <Editor AutoSize="TextChanges"
+                Text="{Binding Vehicle.DescriptionReparations, Mode=TwoWay}" />
+
+            <Label Text="Coût des réparations (€)" />
+            <Entry Keyboard="Numeric"
+               Text="{Binding Vehicle.CoutReparations, Mode=TwoWay}" />
+
+            <Label Text="Date disponibilité vente" />
+            <DatePicker Date="{Binding Vehicle.DateDisponibiliteVente, Mode=TwoWay}" />
+
+            <Label Text="Date de vente" />
+            <DatePicker Date="{Binding Vehicle.DateVente, Mode=TwoWay}" />
+
+            <Label Text="Lien de l'image" />
+            <Entry Text="{Binding Vehicle.ImagePath, Mode=TwoWay}" />
+
+            <Button Text="Enregistrer"
+                Command="{Binding SaveCommand}"
+                BackgroundColor="#007AFF"
+                TextColor="White"
+                CornerRadius="8"
+                HeightRequest="50"/>
+
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

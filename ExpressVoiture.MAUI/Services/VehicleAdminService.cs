@@ -17,5 +17,11 @@ namespace ExpressVoiture.MAUI.Services
             var vehicles = await _httpClient.GetFromJsonAsync<List<AdminVehicleListDto>>("api/Vehicles");
             return vehicles;
         }
+
+        public async Task<bool> AddVehicleAsync(AddOrUpdateVehicleDto vehicle)
+        {
+            var response = await _httpClient.PostAsJsonAsync("api/Vehicles", vehicle);
+            return response.IsSuccessStatusCode;
+        }
     }
 }
