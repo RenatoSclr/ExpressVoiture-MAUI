@@ -30,17 +30,18 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
 // Cookie Auth partagé
 builder.Services.ConfigureApplicationCookie(options =>
 {
-    options.Cookie.Name = ".ExpressVoiture.Identity"; // même nom côté MVC
+    options.Cookie.Name = ".ExpressVoiture.Identity"; 
     options.Cookie.HttpOnly = true;
     options.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.Lax;
     options.Cookie.SecurePolicy = Microsoft.AspNetCore.Http.CookieSecurePolicy.Always;
-    options.LoginPath = "/api/auth/login"; // route de login API
+    options.LoginPath = "/api/auth/login"; 
 });
 
 builder.Services.AddControllers();
 
 builder.Services.AddScoped<IVoitureRepository, VoitureRepository>();
 builder.Services.AddScoped<IVoitureService, VoitureService>();
+builder.Services.AddScoped<IFileService, FileService>();
 
 var app = builder.Build();
 
@@ -68,6 +69,7 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseStaticFiles();
 app.MapControllers();
 
 app.Run();

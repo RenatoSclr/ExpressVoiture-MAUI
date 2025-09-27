@@ -1,5 +1,6 @@
 ﻿using ExpressVoiture.API.Domain.Models;
 using ExpressVoiture.Shared.ViewModel;
+using Microsoft.AspNetCore.Http;
 
 namespace ExpressVoiture.API.Application.Services.Interface
 {
@@ -7,8 +8,8 @@ namespace ExpressVoiture.API.Application.Services.Interface
     {
         Task<List<AdminVehicleListDto>> GetListAdminVehicleViewModel();
         Task<AddOrUpdateVehicleDto> GetAddOrUpdateVehicleViewModel(int? id);
-        Task SaveVoitureAVendre(AddOrUpdateVehicleDto voitureAAjouter);
-        Task UpdateVoitureAVendre(AddOrUpdateVehicleDto voitureAAjouter);
+        Task SaveVoitureAVendre(AddOrUpdateVehicleDto voitureAAjouter, IFormFile formFile);
+        Task UpdateVoitureAVendre(AddOrUpdateVehicleDto voitureAAjouter, IFormFile formFile);
         Task DeleteVoitureAVendre(int? id);
         Task<VoitureAVendre> GetVoitureAVendreById(int? id);
         Task<DeleteVehicleDto> GetDeleteVehicleViewModel(int? id);

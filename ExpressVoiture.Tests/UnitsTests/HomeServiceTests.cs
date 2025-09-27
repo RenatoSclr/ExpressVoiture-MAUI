@@ -80,7 +80,7 @@ namespace ExpressVoiture.Tests.UnitsTests
             mockVoitureRepository.Setup(repo => repo.GetAll(It.IsAny<string>()))
                 .ReturnsAsync(GetListVoitureAVendre());
 
-            var voitureServiceApi = new VoitureService(mockVoitureRepository.Object);
+            var voitureServiceApi = new VoitureService(mockVoitureRepository.Object, null);
             // Act
             var result = await voitureServiceApi.GetAllClientVehicle(includeProperties: "Reparation,Vente");
             var listResult = result.ToList();
@@ -105,7 +105,7 @@ namespace ExpressVoiture.Tests.UnitsTests
                 .Setup(r => r.Get(It.IsAny<Expression<Func<VoitureAVendre, bool>>>(), It.IsAny<string>()))
                 .ReturnsAsync(voiture);
 
-            var voitureService = new VoitureService(mockVoitureRepository.Object);
+            var voitureService = new VoitureService(mockVoitureRepository.Object, null);
 
             // Act
             var result = await voitureService.GetClientDetailedVehicle(1);

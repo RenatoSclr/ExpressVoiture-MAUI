@@ -1,5 +1,4 @@
 ﻿using ExpressVoiture.API.Application.Services.Interface;
-using ExpressVoiture.API.Domain.IRepository;
 using ExpressVoiture.API.Domain.Models;
 using ExpressVoiture.Shared.ViewModel;
 using Microsoft.AspNetCore.Mvc;
@@ -50,17 +49,19 @@ public class VehiclesController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult> AddVoitureAVendre([FromBody] AddOrUpdateVehicleDto voiture)
+    [RequestSizeLimit(10_000_000)]
+    public async Task<ActionResult> AddVoitureAVendre([FromForm] AddOrUpdateVehicleDto voiture, [FromForm] IFormFile? file)
     {
-        await _voitureService.SaveVoitureAVendre(voiture);
+        await _voitureService.SaveVoitureAVendre(voiture, file);
 
         return Ok();
     }
 
     [HttpPut]
-    public async Task<ActionResult> UpdateVoitureAVendre([FromBody] AddOrUpdateVehicleDto voiture)
+    [RequestSizeLimit(10_000_000)]
+    public async Task<ActionResult> UpdateVoitureAVendre([FromForm] AddOrUpdateVehicleDto voiture, [FromForm] IFormFile? file)
     {
-        await _voitureService.UpdateVoitureAVendre(voiture);
+        await _voitureService.UpdateVoitureAVendre(voiture, file);
 
         return Ok();
     }

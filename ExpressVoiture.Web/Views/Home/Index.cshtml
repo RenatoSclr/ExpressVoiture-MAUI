@@ -9,7 +9,7 @@
             <a asp-action="Details" asp-controller="Home" asp-route-id="@voiture.VoitureId" class="text-decoration-none text-dark">
                 <div class="row m-3 border border-5 rounded-3 align-items-center border-primary border-opacity-50">
                     <div class="col-md-4 col-sm-12 p-0">
-                        <img src="~/@((voiture.ImagePath == null) ? "images/utilities/images_indisponibles.png" : @voiture.ImagePath)"
+                        <img src="@(string.IsNullOrEmpty(voiture.ImagePath) ? "/images/utilities/images_indisponibles.png" : voiture.ImagePath)"
                              alt="Image de @voiture.Marque @voiture.Modele"
                              class="img-fluid w-100" />
                     </div>

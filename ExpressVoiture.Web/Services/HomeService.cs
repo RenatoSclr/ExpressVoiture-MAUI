@@ -14,12 +14,31 @@ namespace ExpressVoiture.Services
 
         public async Task<List<ClientVehicleListDto>> GetAllClientVehicleListViewModelAsync()
         {
-            return await _httpClient.GetFromJsonAsync<List<ClientVehicleListDto>>("api/ClientVehicles");
+            var vehicles =  await _httpClient.GetFromJsonAsync<List<ClientVehicleListDto>>("api/ClientVehicles");
+            if (vehicles != null)
+            {
+                foreach (var vehicle in vehicles)
+                {
+                    vehicle.ImagePath = GetFullImagePath(vehicle.ImagePath);
+                }
+            }
+
+            return vehicles ?? new List<ClientVehicleListDto>();
         }
 
         public async Task<ClientDetailedVehicleDto> GetClientDetailsViewModelAsync(int id)
         {
-            return await _httpClient.GetFromJsonAsync<ClientDetailedVehicleDto>($"api/ClientVehicles/{id}");
+            var vehicle = await _httpClient.GetFromJsonAsync<ClientDetailedVehicleDto>($"api/ClientVehicles/{id}");
+
+            vehicle.ImagePath = GetFullImagePath(vehicle.ImagePath);
+
+            return vehicle;
+        }
+
+        private string GetFullImagePath(string relativePath)
+        {
+            if (string.IsNullOrEmpty(relativePath)) return null!;
+            return $"{_httpClient.BaseAddress}{relativePath.Replace("\\", "/")}";
         }
     }
 }

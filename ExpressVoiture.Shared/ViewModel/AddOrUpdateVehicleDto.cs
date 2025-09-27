@@ -23,7 +23,7 @@ namespace ExpressVoiture.Shared.ViewModel
         [Required(ErrorMessage = "La date d'achat est requise.")]
         [Display(Name = "Date d'achat")]
         [DataType(DataType.Date)]
-        public DateTime DateAchat { get; set; }
+        public DateTime? DateAchat { get; set; }
 
         [Required(ErrorMessage = "Le prix d'achat est requis.")]
         [Display(Name = "Prix d'achat")]
@@ -44,7 +44,7 @@ namespace ExpressVoiture.Shared.ViewModel
         [Required(ErrorMessage = "La date de disponibilité à la vente est requise.")]
         [Display(Name = "Date de disponibilité à la vente")]
         [DataType(DataType.Date)]
-        public DateTime DateDisponibiliteVente { get; set; }
+        public DateTime? DateDisponibiliteVente { get; set; }
 
         [Display(Name = "Date de vente (Si vendu)")]
         [DataType(DataType.Date)]
@@ -62,11 +62,11 @@ namespace ExpressVoiture.Shared.ViewModel
                 validationResults.Add(new ValidationResult("L'année ne peut pas être inferieur à 1990 et supérieur a l'année actuelle.", new[] { nameof(Annee) }));
             }
 
-            if (DateAchat.Year < Annee)
+            if (DateAchat.Value.Year < Annee)
             {
                 validationResults.Add(new ValidationResult("La date d'achat ne peut pas être inférieure à l'année de fabrication.", new[] { nameof(DateAchat) }));
             }
-            if (DateAchat.Year > DateTime.Now.Year)
+            if (DateAchat.Value.Year > DateTime.Now.Year)
             {
                 validationResults.Add(new ValidationResult("La date d'achat ne peut pas être supérieur à l'année actuelle.", new[] { nameof(DateAchat) }));
             }

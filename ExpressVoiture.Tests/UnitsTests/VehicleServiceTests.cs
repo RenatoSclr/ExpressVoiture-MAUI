@@ -82,7 +82,7 @@ namespace ExpressVoiture.Tests.UnitsTests
             mockVoitureRepository.Setup(repo => repo.GetAll(It.IsAny<string>()))
                 .ReturnsAsync(GetListVoitureAVendre());
 
-            var voitureService = new VoitureService(mockVoitureRepository.Object);
+            var voitureService = new VoitureService(mockVoitureRepository.Object, null);
             // Act
             var result = await voitureService.GetListAdminVehicleViewModel();
 
@@ -105,7 +105,7 @@ namespace ExpressVoiture.Tests.UnitsTests
             mockVoitureRepository.Setup(repo => repo.Get(It.IsAny<Expression<Func<VoitureAVendre, bool>>>(), "Reparation,Vente"))
                              .ReturnsAsync(voiture);
 
-            var voitureService = new VoitureService(mockVoitureRepository.Object);
+            var voitureService = new VoitureService(mockVoitureRepository.Object, null);
 
             // Act
             var result = await voitureService.GetAddOrUpdateVehicleViewModel(1);
@@ -150,10 +150,10 @@ namespace ExpressVoiture.Tests.UnitsTests
             var mockVoitureRepository = new Mock<IVoitureRepository>();
 
 
-            var voitureService = new VoitureService(mockVoitureRepository.Object);
+            var voitureService = new VoitureService(mockVoitureRepository.Object, null);
 
             // Act
-            await voitureService.SaveVoitureAVendre(voitureAAjouter);
+            await voitureService.SaveVoitureAVendre(voitureAAjouter, null);
 
             // Assert
             mockVoitureRepository.Verify(repo => repo.Add(It.Is<VoitureAVendre>(v =>
@@ -201,10 +201,10 @@ namespace ExpressVoiture.Tests.UnitsTests
             mockVoitureRepository.Setup(repo => repo.Get(It.IsAny<Expression<Func<VoitureAVendre, bool>>>(), "Reparation,Vente"))
                 .ReturnsAsync(voitureAVendre);
 
-            var voitureService = new VoitureService(mockVoitureRepository.Object);
+            var voitureService = new VoitureService(mockVoitureRepository.Object, null);
 
             // Act
-            await voitureService.UpdateVoitureAVendre(voitureAAjouter);
+            await voitureService.UpdateVoitureAVendre(voitureAAjouter, null);
 
             // Assert
             mockVoitureRepository.Verify(repo => repo.Update(It.Is<VoitureAVendre>(v =>
@@ -235,7 +235,7 @@ namespace ExpressVoiture.Tests.UnitsTests
                 .Setup(repo => repo.Get(It.IsAny<Expression<Func<VoitureAVendre, bool>>>(), "Reparation,Vente"))
                 .ReturnsAsync(voitureASupprimer);
 
-            var voitureService =  new VoitureService(mockVoitureRepository.Object);
+            var voitureService =  new VoitureService(mockVoitureRepository.Object, null);
             // Act
             await voitureService.DeleteVoitureAVendre(voitureASupprimer.VoitureId);
 
@@ -255,7 +255,7 @@ namespace ExpressVoiture.Tests.UnitsTests
             mockVoitureRepository.Setup(repo => repo.Get(It.IsAny<Expression<Func<VoitureAVendre, bool>>>(), null))
             .ReturnsAsync(voiture);
 
-            var voitureService = new VoitureService(mockVoitureRepository.Object);
+            var voitureService = new VoitureService(mockVoitureRepository.Object, null);
 
             // Act
             var result = await voitureService.GetDeleteVehicleViewModel(voiture.VoitureId);

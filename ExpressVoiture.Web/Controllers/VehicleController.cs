@@ -3,94 +3,71 @@ using ExpressVoiture.Shared.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ExpressVoiture.Controllers
+[Authorize(Roles = "Admin")]
+public class VehicleController : Controller
 {
-    [Authorize(Roles = "Admin")]
-    public class VehicleController : Controller
+    private readonly IVehicleService _vehicleService;
+    public VehicleController(IVehicleService vehicleService)
     {
-        private readonly IVehicleService _vehicleService;
-        public VehicleController(IVehicleService vehicleService)
-        {
-            _vehicleService = vehicleService;
-        }   
-        public async Task<IActionResult> Index()
-        {
-            List<AdminVehicleListDto> voitureList = await _vehicleService.GetListAdminVehicleViewModel();
-            return View(voitureList);
-        }
+        _vehicleService = vehicleService;
+    }
 
-        public async Task<IActionResult> Upsert(int? id)
-        {
+    public async Task<IActionResult> Index()
+    {
+        var voitureList = await _vehicleService.GetListAdminVehicleViewModel();
+        return View(voitureList);
+    }
 
-            if (id == null || id == 0)
-            {
-                return View(new AddOrUpdateVehicleDto());
-            }
-            else
-            {
-                AddOrUpdateVehicleDto voitureAModifier = await _vehicleService.GetAddOrUpdateVehicleViewModel(id);
-                return View(voitureAModifier);
-            }
+    public async Task<IActionResult> Upsert(int? id)
+    {
+        if (id == null || id == 0)
+            return View(new AddOrUpdateVehicleDto());
 
-        }
+        var voiture = await _vehicleService.GetAddOrUpdateVehicleViewModel(id);
+        return View(voiture);
+    }
 
-        [HttpPost]
-        public IActionResult Upsert(AddOrUpdateVehicleDto voiture, IFormFile? file)
-        {
-
-            if (ModelState.IsValid)
-            {
-               
-
-                if (voiture.VoitureId == 0)
-                {
-                    _vehicleService.SaveVoitureAVendre(voiture, file);
-                    TempData["success"] = "Votre véhicule a bien été ajoutée";
-                }
-                else
-                {
-                    _vehicleService.UpdateVoitureAVendre(voiture, file);
-                    TempData["success"] = "Votre véhicule a bien été éditer";
-                }
-                
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                return View(voiture);
-            }
-
-        }
-
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null || id == 0)
-            {
-                return NotFound();
-            }
-
-            DeleteVehicleDto? voiture = await _vehicleService.GetDeleteVehicleViewModel(id);
-            if (voiture == null)
-            {
-                return NotFound();
-            }
-
+    [HttpPost]
+    public async Task<IActionResult> Upsert(AddOrUpdateVehicleDto voiture, IFormFile? file)
+    {
+        if (!ModelState.IsValid)
             return View(voiture);
-        }
 
-        [HttpPost, ActionName("Delete")]
-        public IActionResult DeletePOST(int? id)
+        if (voiture.VoitureId == 0)
         {
-            
-            if (ModelState.IsValid)
-            {
-                _vehicleService.DeleteVoitureAVendre(id);
-                TempData["success"] = "Votre véhicule a bien été supprimé";
-
-                return RedirectToAction("Index");
-            }
-
-            return View();
+            await _vehicleService.SaveVoitureAVendre(voiture, file);
+            TempData["success"] = "Votre véhicule a bien été ajoutée";
         }
+        else
+        {
+            await _vehicleService.UpdateVoitureAVendre(voiture, file);
+            TempData["success"] = "Votre véhicule a bien été édité";
+        }
+
+        return RedirectToAction("Index");
+    }
+
+    public async Task<IActionResult> Delete(int? id)
+    {
+        if (id == null || id == 0)
+            return NotFound();
+
+        var voiture = await _vehicleService.GetDeleteVehicleViewModel(id);
+        if (voiture == null) return NotFound();
+
+        return View(voiture);
+    }
+
+    [HttpPost, ActionName("Delete")]
+    public async Task<IActionResult> DeletePOST(int? id)
+    {
+        if (ModelState.IsValid)
+        {
+            await _vehicleService.DeleteVoitureAVendre(id);
+            TempData["success"] = "Votre véhicule a bien été supprimé";
+            return RedirectToAction("Index");
+        }
+
+        return View();
     }
 }

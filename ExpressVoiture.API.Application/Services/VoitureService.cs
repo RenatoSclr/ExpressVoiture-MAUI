@@ -2,15 +2,18 @@
 using ExpressVoiture.API.Domain.IRepository;
 using ExpressVoiture.API.Domain.Models;
 using ExpressVoiture.Shared.ViewModel;
+using Microsoft.AspNetCore.Http;
 
 namespace ExpressVoiture.API.Application.Services
 {
     public class VoitureService : IVoitureService
     {
         private readonly IVoitureRepository _voitureRepository;
-        public VoitureService(IVoitureRepository voitureRepository)
+        private readonly IFileService _fileService;
+        public VoitureService(IVoitureRepository voitureRepository, IFileService fileService)
         {
             _voitureRepository = voitureRepository;
+            _fileService = fileService;
         }
 
         public async Task<List<AdminVehicleListDto>> GetListAdminVehicleViewModel()
@@ -78,24 +81,32 @@ namespace ExpressVoiture.API.Application.Services
             return voituresViewModel;
         }
 
-        public async Task SaveVoitureAVendre(AddOrUpdateVehicleDto voitureAAjouter)
+        public async Task SaveVoitureAVendre(AddOrUpdateVehicleDto dto, IFormFile file)
         {
-            VoitureAVendre VoitureAAjouter = MapToVoitureAVendreEntity(voitureAAjouter);
-            await _voitureRepository.Add(VoitureAAjouter);
+            if (file != null)
+                dto.ImagePath = _fileService.SaveFile(file);
+
+            var entity = MapToVoitureAVendreEntity(dto);
+            await _voitureRepository.Add(entity);
             await _voitureRepository.Save();
         }
 
-        public async Task UpdateVoitureAVendre(AddOrUpdateVehicleDto voitureAAjouter)
+        public async Task UpdateVoitureAVendre(AddOrUpdateVehicleDto dto, IFormFile file)
         {
-            VoitureAVendre voitureExistante = await GetVoitureAVendreById(voitureAAjouter.VoitureId);
+            var entity = await GetVoitureAVendreById(dto.VoitureId);
+            if (entity == null) throw new Exception("Véhicule introuvable.");
 
-            if (voitureExistante != null)
+            if (file != null)
             {
-                MapToVoitureAVendreEntity(voitureAAjouter, voitureExistante);
-                await _voitureRepository.Update(voitureExistante);
-                await _voitureRepository.Save();
+                _fileService.DeleteFile(entity.ImagePath);
+                dto.ImagePath = _fileService.SaveFile(file);
             }
+
+            MapToVoitureAVendreEntity(dto, entity);
+            await _voitureRepository.Update(entity);
+            await _voitureRepository.Save();
         }
+
 
         private VoitureAVendre MapToVoitureAVendreEntity(AddOrUpdateVehicleDto voitureAAjouter, VoitureAVendre voitureExistante = null)
         {
@@ -103,7 +114,7 @@ namespace ExpressVoiture.API.Application.Services
 
             voiture.Annee = voitureAAjouter.Annee;
             voiture.CodeVIN = voitureAAjouter.CodeVIN;
-            voiture.DateAchat = voitureAAjouter.DateAchat;
+            voiture.DateAchat = voitureAAjouter.DateAchat.Value;
             voiture.Finition = voitureAAjouter.Finition;
             voiture.Marque = voitureAAjouter.Marque;
             voiture.Modele = voitureAAjouter.Modele;
@@ -116,21 +127,18 @@ namespace ExpressVoiture.API.Application.Services
             voiture.Reparation.Cout = voitureAAjouter.CoutReparations;
 
             voiture.Vente = voiture.Vente ?? new Vente { VoitureId = voiture.VoitureId };
-            voiture.Vente.DateDisponibiliteVente = voitureAAjouter.DateDisponibiliteVente;
+            voiture.Vente.DateDisponibiliteVente = voitureAAjouter.DateDisponibiliteVente.Value;
             voiture.Vente.DateVente = voitureAAjouter.DateVente;
 
             return voiture;
         }
         public async Task DeleteVoitureAVendre(int? id)
         {
-            VoitureAVendre? voiture = await GetVoitureAVendreById(id);
+            var entity = await GetVoitureAVendreById(id);
+            if (entity == null) throw new Exception("Véhicule introuvable.");
 
-            if (voiture is null)
-            {
-                throw new Exception($"Voiture with ID {id} not found.");
-            }
-
-            await _voitureRepository.Remove(voiture);
+            _fileService.DeleteFile(entity.ImagePath);
+            await _voitureRepository.Remove(entity);
             await _voitureRepository.Save();
         }
 
