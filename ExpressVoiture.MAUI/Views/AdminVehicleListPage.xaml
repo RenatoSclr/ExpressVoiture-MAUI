@@ -12,7 +12,13 @@
             TextChanged="SearchBar_TextChanged"
             CancelButtonColor="Gray"/>
 
-            <!-- Bouton Ajouter -->
+            <StackLayout Orientation="Horizontal" Spacing="10" Margin="0,5,0,10">
+                <Label Text="Trier par :" VerticalOptions="Center"/>
+                <Picker ItemsSource="{Binding SortOptions}"
+            SelectedItem="{Binding SelectedSortOption, Mode=TwoWay}"
+            WidthRequest="200"/>
+            </StackLayout>
+
             <Button Text="Ajouter un véhicule"
                     Command="{Binding CreateVehicleCommand}"
                     BackgroundColor="#007AFF"

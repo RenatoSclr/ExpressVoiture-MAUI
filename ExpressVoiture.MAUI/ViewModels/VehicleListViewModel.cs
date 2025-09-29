@@ -30,6 +30,12 @@ namespace ExpressVoiture.MAUI.ViewModels
         [ObservableProperty]
         private string searchText;
 
+        public IEnumerable<VehicleSortOption> SortOptions =>
+            Enum.GetValues(typeof(VehicleSortOption)).Cast<VehicleSortOption>();
+
+
+        [ObservableProperty]
+        private VehicleSortOption selectedSortOption = VehicleSortOption.None;
 
         public VehicleListViewModel(IHomeService homeService, IAuthService authService, IUserStateService userStateService)
         {
@@ -74,22 +80,41 @@ namespace ExpressVoiture.MAUI.ViewModels
 
         public void FilterVehicles()
         {
-            if (string.IsNullOrWhiteSpace(SearchText))
-            {
-                Vehicles = new ObservableCollection<ClientVehicleListDto>(allVehicles);
-            }
-            else
+            IEnumerable<ClientVehicleListDto> filtered = allVehicles;
+
+            if (!string.IsNullOrWhiteSpace(SearchText))
             {
                 var lower = SearchText.ToLowerInvariant();
-                var filtered = allVehicles.Where(v =>
+                filtered = filtered.Where(v =>
                     (v.Marque?.ToLower().Contains(lower) ?? false) ||
                     (v.Modele?.ToLower().Contains(lower) ?? false) ||
                     (v.Finition?.ToLower().Contains(lower) ?? false) ||
-                    v.Annee.ToString().Contains(lower) 
-                ).ToList();
-
-                Vehicles = new ObservableCollection<ClientVehicleListDto>(filtered);
+                    v.Annee.ToString().Contains(lower)
+                );
             }
+
+            filtered = SelectedSortOption switch
+            {
+                VehicleSortOption.AnneeAsc => filtered.OrderBy(v => v.Annee),
+                VehicleSortOption.AnneeDesc => filtered.OrderByDescending(v => v.Annee),
+                VehicleSortOption.PrixAsc => filtered.OrderBy(v => v.PrixVente),
+                VehicleSortOption.PrixDesc => filtered.OrderByDescending(v => v.PrixVente),
+                VehicleSortOption.DateVenteAsc => filtered.OrderBy(v => v.DateVente),
+                VehicleSortOption.DateVenteDesc => filtered.OrderByDescending(v => v.DateVente),
+                _ => filtered
+            };
+
+            Vehicles = new ObservableCollection<ClientVehicleListDto>(filtered);
+        }
+
+        partial void OnSelectedSortOptionChanged(VehicleSortOption value)
+        {
+            FilterVehicles();
+        }
+
+        partial void OnSearchTextChanged(string value)
+        {
+            FilterVehicles();
         }
 
         [RelayCommand]

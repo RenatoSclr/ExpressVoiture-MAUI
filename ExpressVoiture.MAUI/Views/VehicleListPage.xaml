@@ -6,95 +6,102 @@
              x:Class="ExpressVoiture.MAUI.Views.VehicleListPage"
              x:DataType="viewmodel:VehicleListViewModel"
              Title="Nos véhicules">
+
     <ScrollView>
-    <StackLayout Padding="10" Spacing="10">
+        <StackLayout Padding="10" Spacing="10">
 
             <SearchBar Placeholder="Rechercher un véhicule..."
-           Text="{Binding SearchText, Mode=TwoWay}"
-           TextChanged="SearchBar_TextChanged"
-           CancelButtonColor="Gray"/>
+                       Text="{Binding SearchText, Mode=TwoWay}"
+                       CancelButtonColor="Gray"/>
 
-            <!-- Barre supérieure -->
-        <Grid Padding="0,0,0,10">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
+            <StackLayout Orientation="Horizontal" Spacing="10" Margin="0,5,0,10">
+                <Label Text="Trier par :" VerticalOptions="Center"/>
+                <Picker ItemsSource="{Binding SortOptions}"
+                        SelectedItem="{Binding SelectedSortOption, Mode=TwoWay}"
+                        WidthRequest="200"/>
+            </StackLayout>
 
-            <Label Text="Nos véhicules" FontSize="24" FontAttributes="Bold" VerticalOptions="Center" />
 
-            <!-- Bouton Administration -->
-            <Button Grid.Column="1" 
-                    Text="Administration" 
-                    Command="{Binding GoToAdminCommand}" 
-                    IsVisible="{Binding IsLoggedIn}" 
-                    Margin="0,0,10,0" />
+            <Grid Padding="0,0,0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
 
-            <!-- Bouton Connexion/Déconnexion -->
-            <Button Grid.Column="2" 
-                    Text="{Binding LoginButtonText}" 
-                    Command="{Binding ToggleLoginCommand}" />
-        </Grid>
+                <Label Text="Nos véhicules" FontSize="24" FontAttributes="Bold" VerticalOptions="Center" />
 
-        <!-- Loader -->
-        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" HorizontalOptions="Center" />
+                <Button Grid.Column="1" 
+                        Text="Administration" 
+                        Command="{Binding GoToAdminCommand}" 
+                        IsVisible="{Binding IsLoggedIn}" 
+                        Margin="0,0,10,0" />
 
-        <!-- Liste des véhicules -->
-        <CollectionView ItemsSource="{Binding Vehicles}" SelectionMode="Single" 
-                SelectedItem="{Binding SelectedVehicle, Mode=TwoWay}"
-                SelectionChanged="CollectionView_SelectionChanged">
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="shared:ClientVehicleListDto">
-                    <Frame CornerRadius="10"
-                           BorderColor="#CCCCCC"
-                           Padding="10"
-                           Margin="0,0,0,10"
-                           BackgroundColor="White"
-                           HasShadow="True">
+                <Button Grid.Column="2" 
+                        Text="{Binding LoginButtonText}" 
+                        Command="{Binding ToggleLoginCommand}" />
+            </Grid>
 
-                        <!-- TapGestureRecognizer pour rendre la Frame cliquable -->
-                        <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:VehicleListViewModel}}, Path=VehicleSelectedCommand}"
-                                                  CommandParameter="{Binding .}" />
-                        </Frame.GestureRecognizers>
+            <!-- Loader -->
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" HorizontalOptions="Center" />
 
-                        <Grid ColumnSpacing="10">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="120" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
+            <!-- Liste des véhicules -->
+            <CollectionView ItemsSource="{Binding Vehicles}" SelectionMode="Single" 
+                            SelectedItem="{Binding SelectedVehicle, Mode=TwoWay}"
+                            SelectionChanged="CollectionView_SelectionChanged">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="shared:ClientVehicleListDto">
+                        <Frame CornerRadius="10"
+                               BorderColor="#CCCCCC"
+                               Padding="10"
+                               Margin="0,0,0,10"
+                               BackgroundColor="White"
+                               HasShadow="True">
 
-                            <!-- Image du véhicule -->
-                            <Image Source="{Binding ImagePath}" 
-                                   WidthRequest="100" 
-                                   HeightRequest="80" 
-                                   Aspect="AspectFill" />
+                            <!-- TapGestureRecognizer -->
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:VehicleListViewModel}}, Path=VehicleSelectedCommand}"
+                                                      CommandParameter="{Binding .}" />
+                            </Frame.GestureRecognizers>
 
-                            <!-- Informations du véhicule -->
-                            <StackLayout Grid.Column="1" Spacing="5">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
+                            <Grid ColumnSpacing="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="120" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
 
-                                    <Label Text="{Binding Marque}" FontAttributes="Bold" FontSize="16" Grid.Column="0"/>
-                                    <Label Text="{Binding PrixVente, StringFormat='Prix: {0} €'}" Grid.Column="1" TextColor="Red" FontAttributes="Bold"/>
-                                </Grid>
+                                <!-- Image -->
+                                <Image Source="{Binding ImagePath}" 
+                                       WidthRequest="100" 
+                                       HeightRequest="80" 
+                                       Aspect="AspectFill" />
 
-                                <Label Text="{Binding Modele, StringFormat='Modèle: {0}'}" FontSize="14" TextColor="#555555"/>
-                                <Label Text="{Binding Annee, StringFormat='Année: {0}'}" FontSize="14" TextColor="#555555"/>
-                                <Label Text="{Binding Finition, StringFormat='Finition: {0}'}" FontSize="14" TextColor="#555555"/>
+                                <!-- Infos véhicule -->
+                                <StackLayout Grid.Column="1" Spacing="5">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
 
-                                <Label Text="{Binding DateVente, StringFormat='Vendu le: {0:dd/MM/yyyy}'}" FontSize="12" TextColor="#777777" IsVisible="{Binding DateVente, Converter={StaticResource NullToBoolConverter}}"/>
-                            </StackLayout>
-                        </Grid>
-                    </Frame>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+                                        <Label Text="{Binding Marque}" FontAttributes="Bold" FontSize="16" Grid.Column="0"/>
+                                        <Label Text="{Binding PrixVente, StringFormat='Prix: {0} €'}" Grid.Column="1" TextColor="Red" FontAttributes="Bold"/>
+                                    </Grid>
 
-    </StackLayout>
+                                    <Label Text="{Binding Modele, StringFormat='Modèle: {0}'}" FontSize="14" TextColor="#555555"/>
+                                    <Label Text="{Binding Annee, StringFormat='Année: {0}'}" FontSize="14" TextColor="#555555"/>
+                                    <Label Text="{Binding Finition, StringFormat='Finition: {0}'}" FontSize="14" TextColor="#555555"/>
+
+                                    <Label Text="{Binding DateVente, StringFormat='Vendu le: {0:dd/MM/yyyy}'}" 
+                                           FontSize="12" TextColor="#777777" 
+                                           IsVisible="{Binding DateVente, Converter={StaticResource NullToBoolConverter}}"/>
+                                </StackLayout>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </StackLayout>
     </ScrollView>
 </ContentPage>
