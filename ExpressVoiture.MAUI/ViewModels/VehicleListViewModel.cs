@@ -25,16 +25,20 @@ namespace ExpressVoiture.MAUI.ViewModels
         [ObservableProperty]
         private string loginButtonText = "Connexion";
 
+        private List<ClientVehicleListDto> allVehicles = new();
+
+        [ObservableProperty]
+        private string searchText;
+
+
         public VehicleListViewModel(IHomeService homeService, IAuthService authService, IUserStateService userStateService)
         {
             _homeService = homeService;
             _authService = authService;
             _userStateService = userStateService;
 
-            // S'abonner aux changements d'état de connexion
             _userStateService.LoginStateChanged += OnLoginStateChanged;
 
-            // Initialiser l'état
             IsLoggedIn = _userStateService.IsLoggedIn;
             UpdateLoginButtonText();
         }
@@ -54,7 +58,8 @@ namespace ExpressVoiture.MAUI.ViewModels
             {
                 IsBusy = true;
                 var list = await _homeService.GetAllClientVehicleListViewModelAsync();
-                Vehicles = new ObservableCollection<ClientVehicleListDto>(list);
+                allVehicles = list.ToList();
+                Vehicles = new ObservableCollection<ClientVehicleListDto>(allVehicles);
             }
             catch (Exception ex)
             {
@@ -64,6 +69,26 @@ namespace ExpressVoiture.MAUI.ViewModels
             finally
             {
                 IsBusy = false;
+            }
+        }
+
+        public void FilterVehicles()
+        {
+            if (string.IsNullOrWhiteSpace(SearchText))
+            {
+                Vehicles = new ObservableCollection<ClientVehicleListDto>(allVehicles);
+            }
+            else
+            {
+                var lower = SearchText.ToLowerInvariant();
+                var filtered = allVehicles.Where(v =>
+                    (v.Marque?.ToLower().Contains(lower) ?? false) ||
+                    (v.Modele?.ToLower().Contains(lower) ?? false) ||
+                    (v.Finition?.ToLower().Contains(lower) ?? false) ||
+                    v.Annee.ToString().Contains(lower) 
+                ).ToList();
+
+                Vehicles = new ObservableCollection<ClientVehicleListDto>(filtered);
             }
         }
 

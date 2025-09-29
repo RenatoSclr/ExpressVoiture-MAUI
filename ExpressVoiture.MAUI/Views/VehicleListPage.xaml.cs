@@ -31,5 +31,13 @@ namespace ExpressVoiture.MAUI.Views
                 await ((VehicleListViewModel)BindingContext).VehicleSelectedAsync(vehicle);
             }
         }
+
+        private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (BindingContext is VehicleListViewModel vm)
+            {
+                vm.FilterVehicles();
+            }
+        }
     }
 }

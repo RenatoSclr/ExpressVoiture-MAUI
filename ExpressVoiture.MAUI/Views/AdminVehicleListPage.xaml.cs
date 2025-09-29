@@ -21,4 +21,12 @@ public partial class AdminVehicleListPage : ContentPage
             await vm.LoadVehiclesAsync();
         }
     }
+
+    private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        if (BindingContext is VehicleAdminListViewModel vm)
+        {
+            vm.FilterVehicles();
+        }
+    }
 }

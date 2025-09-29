@@ -9,7 +9,12 @@
     <ScrollView>
     <StackLayout Padding="10" Spacing="10">
 
-        <!-- Barre supérieure -->
+            <SearchBar Placeholder="Rechercher un véhicule..."
+           Text="{Binding SearchText, Mode=TwoWay}"
+           TextChanged="SearchBar_TextChanged"
+           CancelButtonColor="Gray"/>
+
+            <!-- Barre supérieure -->
         <Grid Padding="0,0,0,10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />

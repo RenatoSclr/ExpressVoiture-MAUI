@@ -17,6 +17,11 @@ namespace ExpressVoiture.MAUI.ViewModels
         [ObservableProperty]
         private bool isBusy;
 
+        private List<AdminVehicleListDto> allVehicles = new();
+
+        [ObservableProperty]
+        private string searchText;
+
         public VehicleAdminListViewModel(IVehicleAdminService vehicleService)
         {
             _vehicleService = vehicleService;
@@ -28,7 +33,8 @@ namespace ExpressVoiture.MAUI.ViewModels
         {
             IsBusy = true;
             var list = await _vehicleService.GetVehiclesAsync();
-            Vehicles = new ObservableCollection<AdminVehicleListDto>(list);
+            allVehicles = list.ToList();
+            Vehicles = new ObservableCollection<AdminVehicleListDto>(allVehicles);
             IsBusy = false;
         }
 
@@ -83,6 +89,26 @@ namespace ExpressVoiture.MAUI.ViewModels
             if (vehicle is null) return;
 
             await Shell.Current.GoToAsync($"{nameof(UpdateVehiclePage)}?voitureId={vehicle.VoitureId}");
+        }
+
+        public void FilterVehicles()
+        {
+            if (string.IsNullOrWhiteSpace(SearchText))
+            {
+                Vehicles = new ObservableCollection<AdminVehicleListDto>(allVehicles);
+            }
+            else
+            {
+                var lower = SearchText.ToLowerInvariant();
+                var filtered = allVehicles.Where(v =>
+                    (v.Marque?.ToLower().Contains(lower) ?? false) ||
+                    (v.Modele?.ToLower().Contains(lower) ?? false) ||
+                    (v.Finition?.ToLower().Contains(lower) ?? false) ||
+                    v.Annee.ToString().Contains(lower) // si int
+                ).ToList();
+
+                Vehicles = new ObservableCollection<AdminVehicleListDto>(filtered);
+            }
         }
     }
 }
