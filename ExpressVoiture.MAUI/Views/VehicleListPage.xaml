@@ -84,7 +84,7 @@
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
 
-                                        <Label Text="{Binding Marque}" FontAttributes="Bold" FontSize="16" Grid.Column="0"/>
+                                        <Label Text="{Binding Marque}" FontAttributes="Bold" FontSize="16" Grid.Column="0" TextColor="Black"/>
                                         <Label Text="{Binding PrixVente, StringFormat='Prix: {0} €'}" Grid.Column="1" TextColor="Red" FontAttributes="Bold"/>
                                     </Grid>
 
