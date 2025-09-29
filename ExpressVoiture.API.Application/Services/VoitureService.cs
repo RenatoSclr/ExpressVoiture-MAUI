@@ -91,16 +91,10 @@ namespace ExpressVoiture.API.Application.Services
             await _voitureRepository.Save();
         }
 
-        public async Task UpdateVoitureAVendre(AddOrUpdateVehicleDto dto, IFormFile file)
+        public async Task UpdateVoitureAVendre(AddOrUpdateVehicleDto dto)
         {
             var entity = await GetVoitureAVendreById(dto.VoitureId);
-            if (entity == null) throw new Exception("Véhicule introuvable.");
-
-            if (file != null)
-            {
-                _fileService.DeleteFile(entity.ImagePath);
-                dto.ImagePath = _fileService.SaveFile(file);
-            }
+            if (entity is null) throw new Exception("Véhicule introuvable.");
 
             MapToVoitureAVendreEntity(dto, entity);
             await _voitureRepository.Update(entity);

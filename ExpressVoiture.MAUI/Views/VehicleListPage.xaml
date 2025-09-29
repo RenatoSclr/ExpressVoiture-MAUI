@@ -6,7 +6,7 @@
              x:Class="ExpressVoiture.MAUI.Views.VehicleListPage"
              x:DataType="viewmodel:VehicleListViewModel"
              Title="Nos véhicules">
-
+    <ScrollView>
     <StackLayout Padding="10" Spacing="10">
 
         <!-- Barre supérieure -->
@@ -91,4 +91,5 @@
         </CollectionView>
 
     </StackLayout>
+    </ScrollView>
 </ContentPage>

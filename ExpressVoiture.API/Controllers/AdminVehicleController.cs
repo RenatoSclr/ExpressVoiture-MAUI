@@ -59,9 +59,9 @@ public class VehiclesController : ControllerBase
 
     [HttpPut]
     [RequestSizeLimit(10_000_000)]
-    public async Task<ActionResult> UpdateVoitureAVendre([FromForm] AddOrUpdateVehicleDto voiture, [FromForm] IFormFile? file)
+    public async Task<ActionResult> UpdateVoitureAVendre([FromBody] AddOrUpdateVehicleDto voiture)
     {
-        await _voitureService.UpdateVoitureAVendre(voiture, file);
+        await _voitureService.UpdateVoitureAVendre(voiture);
 
         return Ok();
     }

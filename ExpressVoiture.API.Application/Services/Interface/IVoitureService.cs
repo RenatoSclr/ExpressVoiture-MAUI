@@ -9,7 +9,7 @@ namespace ExpressVoiture.API.Application.Services.Interface
         Task<List<AdminVehicleListDto>> GetListAdminVehicleViewModel();
         Task<AddOrUpdateVehicleDto> GetAddOrUpdateVehicleViewModel(int? id);
         Task SaveVoitureAVendre(AddOrUpdateVehicleDto voitureAAjouter, IFormFile formFile);
-        Task UpdateVoitureAVendre(AddOrUpdateVehicleDto voitureAAjouter, IFormFile formFile);
+        Task UpdateVoitureAVendre(AddOrUpdateVehicleDto voitureAAjouter);
         Task DeleteVoitureAVendre(int? id);
         Task<VoitureAVendre> GetVoitureAVendreById(int? id);
         Task<DeleteVehicleDto> GetDeleteVehicleViewModel(int? id);

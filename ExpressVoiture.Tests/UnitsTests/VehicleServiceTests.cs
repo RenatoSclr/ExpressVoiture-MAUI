@@ -204,7 +204,7 @@ namespace ExpressVoiture.Tests.UnitsTests
             var voitureService = new VoitureService(mockVoitureRepository.Object, null);
 
             // Act
-            await voitureService.UpdateVoitureAVendre(voitureAAjouter, null);
+            await voitureService.UpdateVoitureAVendre(voitureAAjouter);
 
             // Assert
             mockVoitureRepository.Verify(repo => repo.Update(It.Is<VoitureAVendre>(v =>
